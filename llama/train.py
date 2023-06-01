@@ -21,10 +21,11 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DATA_PATH = "../llama_data/test.jsonl.zst"
 TOKENIZER_PATH = "tokenizer.model"
 DEVICE = "cpu"
-NUMBER_DATA_POINTS = 2000
+NUMBER_DATA_POINTS = 10000
 
-MAX_SEQ_LEN: int = 100 # TODO: DECIDE THIS VALUE, IF AT ALL, maybe 512?
-BATCH_SIZE: int = 4
+MAX_SEQ_LEN: int = 512 # TODO: DECIDE THIS VALUE, IF AT ALL, maybe 512?
+BATCH_SIZE: int = 20
+
 
 #######################################################
 ### PREPARE DATASETS ##################################
@@ -38,22 +39,29 @@ def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
 
     tokens = torch.full((len(prompt_tokens), total_len), tokenizer.pad_id).to(DEVICE).long()
     for k, t in enumerate(prompt_tokens):
-        tokens[k, : len(t)] = torch.tensor(t).long()
+        tokens[k, : len(t)] = torch.tensor(t).long()        
     return tokens
 
-def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]:
-    seq_len = MAX_SEQ_LEN # TODO: decide this based on seq len, could be: min(max_seq_len, len(source) - 1 - i)
+def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]:    
     idx = i * BATCH_SIZE
     
     # Get the sequence capped at a certain length
-    data = source[idx:idx+BATCH_SIZE, :seq_len]
+    data = source[idx:idx+BATCH_SIZE, :MAX_SEQ_LEN]
     
+    # Figure out minimum lengths to truncate to avoid -1 values
+    min_lens = torch.argmin(data, dim=1)
+    min_lens = min_lens[min_lens > 0]
+    
+    seq_len = MAX_SEQ_LEN
+    if (len(min_lens) > 0):
+        seq_len = torch.min(min_lens) - 1
+        
     # Add 1 to fix -1 values to 0 so one_hot doesn't get mad
     target = source[idx:idx+BATCH_SIZE:, 1:seq_len+1] + 1
     targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words + 1)
     
     # Return to correct tokens by removing the first row
-    return data, targets[:,:,1:].to(DEVICE).type(torch.FloatTensor)
+    return data[:,:seq_len], targets[:,:,1:].to(DEVICE).type(torch.FloatTensor)
 
 start_time = time.time()
 print("Loading Datasets")
@@ -64,6 +72,11 @@ json = pd.read_json(DATA_PATH, lines=True, nrows=NUMBER_DATA_POINTS)
 
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
 train_iter = json['text']
+
+# TODO: decide to order training data by length to avoid small cutoffs
+# orders = train_iter.name.len().sort_values().index
+# train_iter = train_iter.reindex(orders)
+# train_iter = train_iter.reset_index(drop=True)
 
 train_data = data_process(train_iter)
 
@@ -111,43 +124,53 @@ print(f"Loaded in {time.time() - start_time:.2f} seconds")
 #######################################################
 
 criterion = torch.nn.CrossEntropyLoss()
-lr = 5.0  # learning rate
-optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0001, betas=(0.9, 0.98), eps=1e-9)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.95)
+
+# Randomize model weights
+for p in model.parameters():
+    if p.dim() > 1:
+        torch.nn.init.xavier_uniform_(p)
 
 def train(model: torch.nn.Module) -> None:
     model.train()  # turn on train mode
     total_loss = 0.
-    log_interval = 200
+    log_interval = 10
     start_time = time.time()
     num_batches = len(train_data) // BATCH_SIZE
+    epochs = 1
     
-    for batch in range(num_batches):
-        data, targets = get_batch(train_data, batch)
+    for epoch in range(epochs):
+        for batch in range(num_batches):
+            data, targets = get_batch(train_data, batch)
 
-        output = model(data, 0)
-        loss = criterion(output, targets) # TODO: Should i flatten?
-        loss.requires_grad = True
-        
-        optimizer.zero_grad()
-        loss.backward()
-        
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
-        optimizer.step()
+            output = model(data, 0)
+            loss = criterion(output.reshape(-1), targets.reshape(-1)) # TODO: Should i flatten?
+            loss.requires_grad = True
+            
+            optimizer.zero_grad()
+            loss.backward()
+            
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+            optimizer.step()
 
-        total_loss += loss.item()
-        if batch % log_interval == 0 and batch > 0:
-            lr = scheduler.get_last_lr()[0]
-            ms_per_batch = (time.time() - start_time) * 1000 / log_interval
-            cur_loss = total_loss / log_interval
-            ppl = math.exp(cur_loss)
-            print(f'| epoch {epoch:3d} | {batch:5d}/{num_batches:5d} batches | '
-                  f'lr {lr:02.2f} | ms/batch {ms_per_batch:5.2f} | '
-                  f'loss {cur_loss:5.2f} | ppl {ppl:8.2f}')
-            total_loss = 0
-            start_time = time.time()
+            total_loss += loss.item()
+            if batch % log_interval == 0 and batch > 0:
+                lr = scheduler.get_last_lr()[0]
+                ms_per_batch = (time.time() - start_time) * 1000 / log_interval
+                cur_loss = total_loss / log_interval
+                try:
+                    ppl = math.exp(cur_loss)
+                except OverflowError:
+                    ppl = float('inf')
+                print(f'| epoch {epoch:3d} | {batch:5d}/{num_batches:5d} batches | '
+                    f'lr {lr:02.2f} | ms/batch {ms_per_batch:5.2f} | '
+                    f'loss {cur_loss:5.5f} | ppl {ppl:5.5f}')
+                total_loss = 0
+                start_time = time.time()
 
 train(model)
 
+# TODO: keep track of losses and record them
 
-
+torch.save(model.state_dict(), "my_model2")
