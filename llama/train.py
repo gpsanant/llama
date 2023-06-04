@@ -21,7 +21,7 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DEVICE = "cpu"
 TOKENIZER_PATH = "tokenizer.model"
 TRAIN_DATA_PATH = "../llama_data/test.jsonl.zst"
-NUM_TRAIN_DATA = 40000
+NUM_TRAIN_DATA = 50000
 VALID_DATA_PATH = "../llama_data/test.jsonl.zst"
 NUM_VALID_DATA = 10000
 
@@ -32,6 +32,10 @@ MODEL_DIM = 512
 MODEL_N_HEADS = 4
 MODEL_N_LAYERS = 4
 
+
+# Make sure everything is divisible by batch size
+NUM_TRAIN_DATA = NUM_TRAIN_DATA // BATCH_SIZE * BATCH_SIZE
+NUM_VALID_DATA = NUM_VALID_DATA // BATCH_SIZE * BATCH_SIZE
 
 #######################################################
 ### PREPARE DATASETS ##################################
@@ -147,7 +151,7 @@ def train(model: torch.nn.Module) -> None:
     num_train_batches = len(train_data) // BATCH_SIZE
     num_valid_batches = len(valid_data) // BATCH_SIZE
     log_interval = 125
-    epochs = 10
+    epochs = 8
     
     for epoch in range(epochs):
         model.train()  # turn on train mode
