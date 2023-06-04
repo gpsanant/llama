@@ -57,7 +57,6 @@ def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
 def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]:    
     idx = i * BATCH_SIZE
     
-    print("source device", source.get_device())
     # Get the sequence capped at a certain length
     data = source[idx:idx+BATCH_SIZE, :MAX_SEQ_LEN]
     
@@ -83,7 +82,7 @@ print("Loading Datasets")
 # Download this according to the project instructions
 train_df = pd.read_json(TRAIN_DATA_PATH, lines=True, nrows=NUM_TRAIN_DATA)
 valid_df = pd.read_json(VALID_DATA_PATH, lines=True, nrows=NUM_VALID_DATA)
-
+print("Finished reading json", time.time() - start_time)
 valid_df = valid_df.loc[valid_df['text'].str.len() > 10]
 train_df = train_df.loc[train_df['text'].str.len() > 10]
 
