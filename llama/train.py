@@ -21,7 +21,7 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DEVICE = "cpu"
 TOKENIZER_PATH = "tokenizer.model"
 TRAIN_DATA_PATH = "../llama_data/test.jsonl.zst"
-NUM_TRAIN_DATA = 50000
+NUM_TRAIN_DATA = 80000
 VALID_DATA_PATH = "../llama_data/test.jsonl.zst"
 NUM_VALID_DATA = 10000
 
@@ -29,8 +29,8 @@ MAX_SEQ_LEN: int = 2048
 BATCH_SIZE: int = 32
 
 MODEL_DIM = 512
-MODEL_N_HEADS = 4
-MODEL_N_LAYERS = 4
+MODEL_N_HEADS = 8
+MODEL_N_LAYERS = 8
 
 
 # Make sure everything is divisible by batch size
@@ -45,10 +45,10 @@ def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
     # Tokenize and sort by number of tokens in sequence
     prompt_tokens = [tokenizer.encode(x, bos=True, eos=False) for x in raw_text_iter]
     for prompt in prompt_tokens:
-        del prompt[MAX_SEQ_LEN:]
+        del prompt[MAX_SEQ_LEN + 1:]
     prompt_tokens.sort(key=len)
   
-    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN), tokenizer.pad_id).to(DEVICE).long()
+    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).to(DEVICE).long()
     for k, t in enumerate(prompt_tokens):
         tokens[k, : len(t)] = torch.tensor(t).long()        
     return tokens
@@ -133,9 +133,9 @@ print(f"Loaded in {time.time() - start_time:.2f} seconds")
 ### TRAIN MODEL #######################################
 #######################################################
 
+lr = 0.0001
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.01, betas=(0.9, 0.98), eps=1e-9)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.95)
+optimizer = torch.optim.Adam(model.parameters(), lr=lr, betas=(0.9, 0.98), eps=1e-9)
 
 train_losses = []
 valid_losses = [float('inf')]
@@ -150,7 +150,7 @@ def train(model: torch.nn.Module) -> None:
     start_time = time.time()
     num_train_batches = len(train_data) // BATCH_SIZE
     num_valid_batches = len(valid_data) // BATCH_SIZE
-    log_interval = 125
+    log_interval = 150
     epochs = 8
     
     for epoch in range(epochs):
@@ -172,7 +172,6 @@ def train(model: torch.nn.Module) -> None:
 
             total_loss += loss.item()
             if batch % log_interval == 0 and batch > 0:
-                lr = scheduler.get_last_lr()[0]
                 ms_per_batch = (time.time() - start_time) * 1000 / log_interval
                 cur_loss = total_loss / log_interval
                 print(f'| epoch {epoch:3d} | {batch:5d}/{num_train_batches:5d} batches | '
@@ -196,16 +195,14 @@ def train(model: torch.nn.Module) -> None:
                 
         if min(valid_losses) < total_loss / NUM_VALID_DATA:
             torch.save(model.state_dict(), "my_model")
-                
+        
+        total_loss = 0.
         valid_losses.append(total_loss / NUM_VALID_DATA)
 
 print("Starting to train model!")
 total_start_time = time.time()
 train(model)
 print(f"Trained in {time.time() - total_start_time:.2f} seconds")
-
-print(train_losses)
-print(valid_losses)
 
 # Write out results to a csv for plotting later
 file = open('train_losses.csv', 'w+', newline ='')
