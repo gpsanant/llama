@@ -40,11 +40,11 @@ MODEL_N_LAYERS = 4
 def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
     # Tokenize and sort by number of tokens in sequence
     prompt_tokens = [tokenizer.encode(x, bos=True, eos=False) for x in raw_text_iter]
+    for prompt in prompt_tokens:
+        del prompt[MAX_SEQ_LEN:]
     prompt_tokens.sort(key=len)
   
-    max_prompt_size = max([len(t) for t in prompt_tokens])
-
-    tokens = torch.full((len(prompt_tokens), max_prompt_size), tokenizer.pad_id).to(DEVICE).long()
+    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN), tokenizer.pad_id).to(DEVICE).long()
     for k, t in enumerate(prompt_tokens):
         tokens[k, : len(t)] = torch.tensor(t).long()        
     return tokens
