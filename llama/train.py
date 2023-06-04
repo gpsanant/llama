@@ -18,11 +18,11 @@ from typing import Tuple
 from torch.utils.data import dataset
 from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 
-DEVICE = "cpu"
-TOKENIZER_PATH = "tokenizer.model"
-TRAIN_DATA_PATH = "../llama_data/test.jsonl.zst"
+DEVICE = "cuda"
+TOKENIZER_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
+TRAIN_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/00.jsonl.zst"
 NUM_TRAIN_DATA = 80000
-VALID_DATA_PATH = "../llama_data/test.jsonl.zst"
+VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
 NUM_VALID_DATA = 10000
 
 MAX_SEQ_LEN: int = 2048
@@ -48,15 +48,16 @@ def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
     for prompt in prompt_tokens:
         del prompt[MAX_SEQ_LEN + 1:]
     prompt_tokens.sort(key=len)
-  
-    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).to(DEVICE).long()
+
+    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).cpu().long()
     for k, t in enumerate(prompt_tokens):
         tokens[k, : len(t)] = torch.tensor(t).long()        
-    return tokens
+    return tokens.cpu()
 
 def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]:    
     idx = i * BATCH_SIZE
     
+    print("source device", source.get_device())
     # Get the sequence capped at a certain length
     data = source[idx:idx+BATCH_SIZE, :MAX_SEQ_LEN]
     
@@ -73,7 +74,7 @@ def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]
     targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words + 1)
     
     # Return to correct tokens by removing the first row
-    return data[:,:seq_len], targets[:,:,1:].to(DEVICE).type(torch.FloatTensor)
+    return data[:,:seq_len].to(DEVICE), targets[:,:,1:].type(torch.cuda.FloatTensor).to(DEVICE)
 
 start_time = time.time()
 print("Loading Datasets")
@@ -83,11 +84,17 @@ print("Loading Datasets")
 train_df = pd.read_json(TRAIN_DATA_PATH, lines=True, nrows=NUM_TRAIN_DATA)
 valid_df = pd.read_json(VALID_DATA_PATH, lines=True, nrows=NUM_VALID_DATA)
 
+valid_df = valid_df.loc[valid_df['text'].str.len() > 10]
+train_df = train_df.loc[train_df['text'].str.len() > 10]
+
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
 
-train_data = data_process(train_df['text'])
-valid_data = data_process(valid_df['text'])
+train_data = data_process(train_df['text']).cpu()
+valid_data = data_process(valid_df['text']).cpu()
 
+print("cuda device: ", torch.cuda.get_device_name(0))
+print("train_data device", train_data.get_device())
+print("valid_data device", valid_data.get_device())
 print(f"Loaded in {time.time() - start_time:.2f} seconds")
 
 
@@ -99,9 +106,9 @@ def setup_model_parallel() -> Tuple[int, int]:
     local_rank = int(os.environ.get("LOCAL_RANK", -1))
     world_size = int(os.environ.get("WORLD_SIZE", -1))
 
-    torch.distributed.init_process_group("gloo", rank=local_rank, world_size=world_size) # TODO: or nccl for gpu
+    torch.distributed.init_process_group("nccl", rank=local_rank, world_size=world_size) # TODO: or nccl for gpu
     initialize_model_parallel(world_size)
-    # torch.cuda.set_device(local_rank) # TODO: I don't have a gpu on my laptop
+    torch.cuda.set_device(local_rank) # TODO: I don't have a gpu on my laptop
 
     # seed must be the same in all processes
     torch.manual_seed(1)
@@ -124,9 +131,9 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
-# torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
+torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
 model = llama.Transformer(model_args)
-torch.set_default_tensor_type(torch.FloatTensor)
+# torch.set_default_tensor_type(torch.FloatTensor)
 
 print(f"Loaded in {time.time() - start_time:.2f} seconds")
 
@@ -160,6 +167,11 @@ def train(model: torch.nn.Module) -> None:
         
         for batch in range(num_train_batches):
             data, targets = get_batch(train_data, batch)
+            if  (data.shape[1] < 10):
+                del data
+                del targets
+                torch.cuda.empty_cache()
+                continue
             output = model(data, 0)
             
             loss = criterion(output.view(-1, tokenizer.n_words),
@@ -171,8 +183,11 @@ def train(model: torch.nn.Module) -> None:
             
             torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
             optimizer.step()
-
             total_loss += loss.item()
+            del data
+            del targets
+            del loss
+            torch.cuda.empty_cache()
             if batch % log_interval == 0 and batch > 0:
                 ms_per_batch = (time.time() - start_time) * 1000 / log_interval
                 cur_loss = total_loss / log_interval
@@ -189,21 +204,30 @@ def train(model: torch.nn.Module) -> None:
         with torch.no_grad():
             for batch in range(num_valid_batches):
                 data, targets = get_batch(valid_data, batch)
+                if (data.shape[1] < 10):
+                    del data
+                    del targets
+                    torch.cuda.empty_cache()
+                    continue
                 output = model(data, 0)
                 
                 loss = criterion(output.view(-1, tokenizer.n_words),
                                  targets.view(-1, tokenizer.n_words))
                 total_loss += loss.item()
+                del data
+                del targets
+                del loss
+                torch.cuda.empty_cache()
                 
         if min(valid_losses) < total_loss / NUM_VALID_DATA:
             torch.save(model.state_dict(), "my_model")
         
-        total_loss = 0.
         valid_losses.append(total_loss / NUM_VALID_DATA)
+        total_loss = 0.
 
 print("Starting to train model!")
 total_start_time = time.time()
-train(model)
+train(model.to(DEVICE))
 print(f"Trained in {time.time() - total_start_time:.2f} seconds")
 
 # Write out results to a csv for plotting later
