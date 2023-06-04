@@ -27,6 +27,7 @@ NUM_VALID_DATA = 10000
 
 MAX_SEQ_LEN: int = 2048
 BATCH_SIZE: int = 32
+EPOCHS = 8
 
 MODEL_DIM = 512
 MODEL_N_HEADS = 8
@@ -119,7 +120,8 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     max_batch_size=BATCH_SIZE,
     dim=MODEL_DIM,
     n_heads=MODEL_N_HEADS,
-    n_layers=MODEL_N_LAYERS)
+    n_layers=MODEL_N_LAYERS,
+    device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
 # torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
@@ -151,9 +153,9 @@ def train(model: torch.nn.Module) -> None:
     num_train_batches = len(train_data) // BATCH_SIZE
     num_valid_batches = len(valid_data) // BATCH_SIZE
     log_interval = 150
-    epochs = 8
+
     
-    for epoch in range(epochs):
+    for epoch in range(EPOCHS):
         model.train()  # turn on train mode
         
         for batch in range(num_train_batches):
