@@ -200,9 +200,9 @@ def train(model: torch.nn.Module) -> None:
         valid_losses.append(total_loss / NUM_VALID_DATA)
 
 print("Starting to train model!")
-start_time = time.time()
+total_start_time = time.time()
 train(model)
-print(f"Trained in {time.time() - start_time:.2f} seconds")
+print(f"Trained in {time.time() - total_start_time:.2f} seconds")
 
 print(train_losses)
 print(valid_losses)
