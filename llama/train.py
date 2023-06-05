@@ -154,6 +154,7 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.95), eps=
 
 sum_train_losses = []
 avg_train_losses = []
+train_times = []
 # set so model will always be saved after first epoch
 sum_valid_losses = []
 avg_valid_losses = []
@@ -175,6 +176,8 @@ def train(model: torch.nn.Module) -> None:
         model.train()  # turn on train mode
         epoch_train_loss = 0.
         epoch_valid_loss = 0.
+
+        epoch_train_start_time = time.time()
 
         for batch in range(num_train_batches):
             data, targets = get_batch(train_data, batch, BATCH_SIZE)
@@ -215,7 +218,8 @@ def train(model: torch.nn.Module) -> None:
         sum_train_losses.append(epoch_train_loss)
         avg_train_losses.append(epoch_train_loss / num_train_batches)
         print(f'| epoch {epoch:3d} | '
-            f'summed training loss for epoch {epoch_train_loss:5.5f}')
+            f'summed training loss for epoch {epoch_train_loss:5.5f} | time elapsed: {time.time() - epoch_train_start_time:.2f} seconds')
+        train_times.append(time.time() - epoch_train_start_time)
         print(f'| epoch {epoch:3d} | '
             f'average per batch training loss for epoch {epoch_train_loss / num_train_batches:5.5f}')
 
@@ -268,6 +272,11 @@ file = open(model_dir + 'average_per_batch_train_losses.csv', 'w+', newline ='')
 with file:
     write = csv.writer(file)
     write.writerow(avg_train_losses)
+
+file = open(model_dir + 'train_times.csv', 'w+', newline ='')
+with file:
+    write = csv.writer(file)
+    write.writerow(train_times)
 
 file = open(model_dir + 'sum_valid_losses.csv', 'w+', newline ='')
 with file:
