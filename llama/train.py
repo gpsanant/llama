@@ -26,17 +26,20 @@ VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
 NUM_VALID_DATA = 100
 
 MAX_SEQ_LEN: int = 2048
-BATCH_SIZE: int = 32
-EPOCHS = 20
+BATCH_SIZE: int = 16
+VALID_BATCH_SIZE: int = 1
+EPOCHS = 3
 
 MODEL_DIM = 256
 MODEL_N_HEADS = 8
 MODEL_N_LAYERS = 8
 
+OUTPUT_DIR = r"/mmfs1/gscratch/scrubbed/ebdaniel/llama/models" # needs to already exist
+MODEL_NAME = "baby_model_2" # include hyperparams, time
 
 # Make sure everything is divisible by batch size
 NUM_TRAIN_DATA = NUM_TRAIN_DATA // BATCH_SIZE * BATCH_SIZE
-NUM_VALID_DATA = NUM_VALID_DATA // BATCH_SIZE * BATCH_SIZE
+# NUM_VALID_DATA = NUM_VALID_DATA // BATCH_SIZE * BATCH_SIZE
 
 #######################################################
 ### PREPARE DATASETS ##################################
@@ -44,10 +47,6 @@ NUM_VALID_DATA = NUM_VALID_DATA // BATCH_SIZE * BATCH_SIZE
 
 def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
     # Tokenize and sort by number of tokens in sequence
-    #TODO: move deletion of short data after tokenizing
-    #TODO: consider the initial model parameters, are zero, or somehow wrong another way?
-    #TODO: what starting position when you pass forward through the model?
-    #TODO: how many output tokens do we want? We think all.
     print("starting tokenizing", time.time() - start_time)
     prompt_tokens = [tokenizer.encode(x, bos=True, eos=False) for x in raw_text_iter]
     print("finished tokenizing, start truncating", time.time() - start_time)
@@ -59,27 +58,27 @@ def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
 
     tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).cpu().long()
     for k, t in enumerate(prompt_tokens):
-        tokens[k, : len(t)] = torch.tensor(t).long()        
+        tokens[k, : len(t)] = torch.tensor(t).long()
     return tokens.cpu()
 
-def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]:    
-    idx = i * BATCH_SIZE
-    
+def get_batch(source: torch.Tensor, i: int, batch_size: int) -> Tuple[torch.Tensor, torch.Tensor]:
+    idx = i * batch_size
+
     # Get the sequence capped at a certain length
-    data = source[idx:idx+BATCH_SIZE, :MAX_SEQ_LEN]
-    
+    data = source[idx:idx+batch_size, :MAX_SEQ_LEN]
+
     # Figure out minimum lengths to truncate to avoid -1 values
     min_lens = torch.argmin(data, dim=1)
     min_lens = min_lens[min_lens > 0]
-    
+
     seq_len = MAX_SEQ_LEN
     if (len(min_lens) > 0):
         seq_len = torch.min(min_lens) - 1
-        
+
     # Add 1 to fix -1 values to 0 so one_hot doesn't get mad
-    target = source[idx:idx+BATCH_SIZE, 1:seq_len+1]
+    target = source[idx:idx+batch_size, 1:seq_len+1]
     targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words)
-    
+
     # Return to correct tokens by removing the first row
     return data[:,:seq_len].to(DEVICE), targets.type(torch.cuda.FloatTensor).to(DEVICE)
 
@@ -153,9 +152,11 @@ lr = 0.0001
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.95), eps=1e-9)
 
-train_losses = []
+sum_train_losses = []
+avg_train_losses = []
 # set so model will always be saved after first epoch
-valid_losses = [float('inf')]
+sum_valid_losses = []
+avg_valid_losses = []
 
 # Randomize model weights
 #for p in model.parameters():
@@ -166,35 +167,35 @@ def train(model: torch.nn.Module) -> None:
     total_loss = 0.
     start_time = time.time()
     num_train_batches = len(train_data) // BATCH_SIZE
-    num_valid_batches = len(valid_data) // BATCH_SIZE
+    # num_valid_batches = len(valid_data) // BATCH_SIZE
+    # num valid batches is 1, we iterate through each datapoint
     log_interval = 25
 
-    
     for epoch in range(EPOCHS):
         model.train()  # turn on train mode
-        
+        epoch_train_loss = 0.
+        epoch_valid_loss = 0.
+
         for batch in range(num_train_batches):
-            data, targets = get_batch(train_data, batch)
+            data, targets = get_batch(train_data, batch, BATCH_SIZE)
             if  (data.shape[1] < 10):
                 del data
                 del targets
                 torch.cuda.empty_cache()
                 continue
-            torch.autograd.set_detect_anomaly(True)
             optimizer.zero_grad()
             output = model(data, 0)
-            print("output shape", output.shape)
-            print("output", output)
             loss = criterion(output.view(-1, tokenizer.n_words),
                              targets.view(-1, tokenizer.n_words))
             # loss.requires_grad = True
-            
+
             loss.backward()
-            print("loss", loss.item())
-            
+            # print("loss", loss.item())
+
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.5)
             optimizer.step()
             total_loss += loss.item()
+            epoch_train_loss += loss.item()
 
             del data
             del targets
@@ -209,34 +210,48 @@ def train(model: torch.nn.Module) -> None:
                     f'loss {cur_loss:5.5f}')
                 total_loss = 0
                 start_time = time.time()
-                
-                train_losses.append(cur_loss)
-                
-        model.eval()  # turn on evaluation mode
+
         total_loss = 0.
+        sum_train_losses.append(epoch_train_loss)
+        avg_train_losses.append(epoch_train_loss / num_train_batches)
+        print(f'| epoch {epoch:3d} | '
+            f'summed training loss for epoch {epoch_train_loss:5.5f}')
+        print(f'| epoch {epoch:3d} | '
+            f'average per batch training loss for epoch {epoch_train_loss / num_train_batches:5.5f}')
+
+        model.eval()  # turn on evaluation mode
         with torch.no_grad():
-            for batch in range(num_valid_batches):
-                data, targets = get_batch(valid_data, batch)
-                if (data.shape[1] < 10):
+            for batch in range(len(valid_data)):
+                data, targets = get_batch(valid_data, batch, 1)
+                if (data.shape[1] < 1):
                     del data
                     del targets
                     torch.cuda.empty_cache()
                     continue
                 output = model(data, 0)
-                
+
                 loss = criterion(output.view(-1, tokenizer.n_words),
                                  targets.view(-1, tokenizer.n_words))
-                total_loss += loss.item()
+                epoch_valid_loss += loss.item()
                 del data
                 del targets
                 del loss
                 torch.cuda.empty_cache()
-                
-        if min(valid_losses) < total_loss / NUM_VALID_DATA:
-            torch.save(model.state_dict(), "my_model")
-        
-        valid_losses.append(total_loss / NUM_VALID_DATA)
-        total_loss = 0.
+        print(f'| epoch {epoch:3d} | '
+            f'summed validation loss over epoch {epoch_valid_loss:5.5f}')
+        print(f'| epoch {epoch:3d} | '
+            f'averaged per batch validation loss over epoch {epoch_valid_loss / len(valid_data):5.5f}')
+
+        torch.save(model.state_dict(), model_dir + "model_epoch_" + str(epoch) + '.pt')
+
+        sum_valid_losses.append(epoch_valid_loss)
+        avg_valid_losses.append(epoch_valid_loss / len(valid_data))
+
+
+
+# Create model directory to write in
+model_dir = OUTPUT_DIR + '/' + MODEL_NAME + '/'
+os.makedirs(model_dir)
 
 print("Starting to train model!")
 total_start_time = time.time()
@@ -244,13 +259,22 @@ train(model.to(DEVICE))
 print(f"Trained in {time.time() - total_start_time:.2f} seconds")
 
 # Write out results to a csv for plotting later
-file = open('train_losses.csv', 'w+', newline ='')
-with file:   
+file = open(model_dir + 'sum_train_losses.csv', 'w+', newline ='')
+with file:
     write = csv.writer(file)
-    write.writerow(train_losses)
-    
-file = open('valid_losses.csv', 'w+', newline ='')
-with file:   
-    write = csv.writer(file)
-    write.writerow(valid_losses[1:]) 
+    write.writerow(sum_train_losses)
 
+file = open(model_dir + 'average_per_batch_train_losses.csv', 'w+', newline ='')
+with file:
+    write = csv.writer(file)
+    write.writerow(avg_train_losses)
+
+file = open(model_dir + 'sum_valid_losses.csv', 'w+', newline ='')
+with file:
+    write = csv.writer(file)
+    write.writerow(sum_valid_losses)
+
+file = open(model_dir + 'average_per_batch_valid_losses.csv', 'w+', newline ='')
+with file:
+    write = csv.writer(file)
+    write.writerow(avg_valid_losses)
