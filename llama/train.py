@@ -1,9 +1,11 @@
 # Copyright (c) Aric Prieve Inc. and totally all of my affiliates.
 
+
 # This is the training for CSE 493s HW2
 # I run this file using: `torchrun llama/train.py` from the llama home folder
 # Be sure to set paths below to the data and tokenizer model
 # (can be downloaded from ed)
+
 
 import os
 import sys
@@ -11,123 +13,130 @@ import pandas as pd
 import time
 import torch
 import llama
+import random
 import math
 import csv
+
 
 from typing import Tuple
 from torch.utils.data import dataset
 from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 
-DEVICE = "cuda"
-TOKENIZER_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
-TRAIN_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/00.jsonl.zst"
-NUM_TRAIN_DATA = 800
-VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
-NUM_VALID_DATA = 100
+
+DEVICE = 'cpu' #torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+TOKENIZER_PATH = "../tokenizer.model"
+TRAIN_DATA_PATH = "../llama_data/test.jsonl.zst"
+NUM_TRAIN_DATA = 20
+VALID_DATA_PATH = "../llama_data/val.jsonl.zst"
+NUM_VALID_DATA =  2
+
 
 MAX_SEQ_LEN: int = 2048
-BATCH_SIZE: int = 32
-EPOCHS = 20
+BATCH_SIZE: int = 1
+EPOCHS = 8
+
 
 MODEL_DIM = 512
 MODEL_N_HEADS = 8
 MODEL_N_LAYERS = 8
 
 
+
+
 # Make sure everything is divisible by batch size
 NUM_TRAIN_DATA = NUM_TRAIN_DATA // BATCH_SIZE * BATCH_SIZE
 NUM_VALID_DATA = NUM_VALID_DATA // BATCH_SIZE * BATCH_SIZE
+
 
 #######################################################
 ### PREPARE DATASETS ##################################
 #######################################################
 
+
 def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
     # Tokenize and sort by number of tokens in sequence
-    #TODO: move deletion of short data after tokenizing
-    #TODO: consider the initial model parameters, are zero, or somehow wrong another way?
-    #TODO: what starting position when you pass forward through the model?
-    #TODO: how many output tokens do we want? We think all.
-    print("starting tokenizing", time.time() - start_time)
     prompt_tokens = [tokenizer.encode(x, bos=True, eos=False) for x in raw_text_iter]
-    print("finished tokenizing, start truncating", time.time() - start_time)
     for prompt in prompt_tokens:
         del prompt[MAX_SEQ_LEN + 1:]
-    print("finished truncating, start sorting", time.time() - start_time)
     prompt_tokens.sort(key=len)
-    print("finish sorting", time.time() - start_time)
-
-    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).cpu().long()
+ 
+    tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).to(DEVICE).long()
     for k, t in enumerate(prompt_tokens):
         tokens[k, : len(t)] = torch.tensor(t).long()        
-    return tokens.cpu()
+    return tokens
+
 
 def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]:    
     idx = i * BATCH_SIZE
-    
+   
     # Get the sequence capped at a certain length
     data = source[idx:idx+BATCH_SIZE, :MAX_SEQ_LEN]
-    
+   
     # Figure out minimum lengths to truncate to avoid -1 values
     min_lens = torch.argmin(data, dim=1)
     min_lens = min_lens[min_lens > 0]
-    
+   
     seq_len = MAX_SEQ_LEN
     if (len(min_lens) > 0):
         seq_len = torch.min(min_lens) - 1
-        
+       
     # Add 1 to fix -1 values to 0 so one_hot doesn't get mad
-    target = source[idx:idx+BATCH_SIZE, 1:seq_len+1]
-    targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words)
-    
+    target = source[idx:idx+BATCH_SIZE:, 1:seq_len+1] + 1
+    targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words + 1)
+   
     # Return to correct tokens by removing the first row
-    return data[:,:seq_len].to(DEVICE), targets.type(torch.cuda.FloatTensor).to(DEVICE)
+    return data[:,:seq_len], targets[:,:,1:].to(DEVICE).type(torch.FloatTensor)
+
 
 start_time = time.time()
-print("Loading Datasets", start_time)
+print("Loading Datasets")
+
 
 # Read in test data from Pile (this is just a start)
 # Download this according to the project instructions
 train_df = pd.read_json(TRAIN_DATA_PATH, lines=True, nrows=NUM_TRAIN_DATA)
 valid_df = pd.read_json(VALID_DATA_PATH, lines=True, nrows=NUM_VALID_DATA)
-print("Finished reading json", time.time() - start_time)
-valid_df = valid_df.loc[valid_df['text'].str.len() > 10]
-train_df = train_df.loc[train_df['text'].str.len() > 10]
+
 
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
 
-train_data = data_process(train_df['text']).cpu()
-valid_data = data_process(valid_df['text']).cpu()
 
-print("cuda device: ", torch.cuda.get_device_name(0))
-print("train_data device", train_data.get_device())
-print("valid_data device", valid_data.get_device())
+train_data = data_process(train_df['text'])
+valid_data = data_process(valid_df['text'])
+
+
 print(f"Loaded in {time.time() - start_time:.2f} seconds")
+
+
 
 
 #######################################################
 ### PREPARE MODEL #####################################
 #######################################################
 
+
 def setup_model_parallel() -> Tuple[int, int]:
     local_rank = int(os.environ.get("LOCAL_RANK", -1))
     world_size = int(os.environ.get("WORLD_SIZE", -1))
-
-    torch.distributed.init_process_group("nccl", rank=local_rank, world_size=world_size) # TODO: or nccl for gpu
+    torch.distributed.init_process_group("gloo", rank=local_rank, world_size=world_size) # TODO: or nccl for gpu
     initialize_model_parallel(world_size)
-    torch.cuda.set_device(local_rank) # TODO: I don't have a gpu on my laptop
+    # torch.cuda.set_device(local_rank) # TODO: I don't have a gpu on my laptop
+
 
     # seed must be the same in all processes
     torch.manual_seed(1)
     return local_rank, world_size
 
+
 # Start time similar to example.py
 start_time = time.time()
 print("Loading Model")
 
+
 local_rank, world_size = setup_model_parallel()
 if local_rank > 0:
     sys.stdout = open(os.devnull, "w")
+
 
 model_args: llama.ModelArgs = llama.ModelArgs(
     max_seq_len=MAX_SEQ_LEN,
@@ -138,65 +147,62 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
-torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
+
+# torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
 model = llama.Transformer(model_args)
-# torch.set_default_tensor_type(torch.FloatTensor)
+#model.to('cuda')
+torch.set_default_tensor_type(torch.FloatTensor)
+
 
 print(f"Loaded in {time.time() - start_time:.2f} seconds")
+
+
 
 
 #######################################################
 ### TRAIN MODEL #######################################
 #######################################################
 
-lr = 0.0001
+
+lr = 0.003
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.95), eps=1e-9)
+optimizer = torch.optim.Adam(model.parameters(), lr=lr, betas=(0.9, 0.98), eps=1e-9)
+
 
 train_losses = []
-# set so model will always be saved after first epoch
 valid_losses = [float('inf')]
 
+
 # Randomize model weights
-#for p in model.parameters():
-#    if p.dim() > 1:
-#        torch.nn.init.xavier_uniform_(p)
+for p in model.parameters():
+    if p.dim() > 1:
+        torch.nn.init.xavier_uniform_(p)
+
 
 def train(model: torch.nn.Module) -> None:
     total_loss = 0.
     start_time = time.time()
     num_train_batches = len(train_data) // BATCH_SIZE
     num_valid_batches = len(valid_data) // BATCH_SIZE
-    log_interval = 25
-
-    
+    log_interval = 150
+   
     for epoch in range(EPOCHS):
         model.train()  # turn on train mode
-        
+        #rand_order_batches = list(range(num_train_batches))
+        #random.shuffle(rand_order_batches)
         for batch in range(num_train_batches):
+            batch_start_time = time.time()
+            print('batch {}'.format(batch))
             data, targets = get_batch(train_data, batch)
-            if  (data.shape[1] < 10):
-                del data
-                del targets
-                torch.cuda.empty_cache()
-                continue
-            optimizer.zero_grad()
             output = model(data, 0)
-            print("output shape", output.shape)
-            print("output", output)            
             loss = criterion(output.view(-1, tokenizer.n_words),
                              targets.view(-1, tokenizer.n_words))
-            loss.requires_grad = True
-            
+            #loss.requires_grad = True
+            optimizer.zero_grad()
             loss.backward()
-            
-            # torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
             optimizer.step()
             total_loss += loss.item()
-            del data
-            del targets
-            del loss
-            torch.cuda.empty_cache()
             if batch % log_interval == 0 and batch > 0:
                 ms_per_batch = (time.time() - start_time) * 1000 / log_interval
                 cur_loss = total_loss / log_interval
@@ -205,48 +211,55 @@ def train(model: torch.nn.Module) -> None:
                     f'loss {cur_loss:5.5f}')
                 total_loss = 0
                 start_time = time.time()
-                
+               
                 train_losses.append(cur_loss)
-                
+
+
+            print(output)  
+            print(time.time() - batch_start_time)
+        print('!!!!!!!!!!!! Passed through batches !!!!!!!!!!!')
         model.eval()  # turn on evaluation mode
         total_loss = 0.
         with torch.no_grad():
             for batch in range(num_valid_batches):
-                data, targets = get_batch(valid_data, batch)
-                if (data.shape[1] < 10):
-                    del data
-                    del targets
-                    torch.cuda.empty_cache()
-                    continue
+                data, targets = get_batch(train_data, batch)
                 output = model(data, 0)
-                
+               
                 loss = criterion(output.view(-1, tokenizer.n_words),
                                  targets.view(-1, tokenizer.n_words))
                 total_loss += loss.item()
-                del data
-                del targets
-                del loss
-                torch.cuda.empty_cache()
-                
+               
         if min(valid_losses) < total_loss / NUM_VALID_DATA:
             torch.save(model.state_dict(), "my_model")
-        
+       
+        print('total_loss: {}'.format(total_loss))
         valid_losses.append(total_loss / NUM_VALID_DATA)
         total_loss = 0.
 
+
+    print('valid_losses')
+
+
+
+
 print("Starting to train model!")
 total_start_time = time.time()
-train(model.to(DEVICE))
+train(model)
 print(f"Trained in {time.time() - total_start_time:.2f} seconds")
+
 
 # Write out results to a csv for plotting later
 file = open('train_losses.csv', 'w+', newline ='')
-with file:   
+with file:  
     write = csv.writer(file)
     write.writerow(train_losses)
-    
+   
 file = open('valid_losses.csv', 'w+', newline ='')
-with file:   
+with file:  
     write = csv.writer(file)
-    write.writerow(valid_losses[1:]) 
+    write.writerow(valid_losses[1:])
+
+
+
+
 
