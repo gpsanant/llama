@@ -77,6 +77,7 @@ def get_batch(source: torch.Tensor, i: int, batch_size: int) -> Tuple[torch.Tens
 
     # Add 1 to fix -1 values to 0 so one_hot doesn't get mad
     target = source[idx:idx+batch_size, 1:seq_len+1]
+    target[target < 0] = 0
     targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words)
 
     # Return to correct tokens by removing the first row
