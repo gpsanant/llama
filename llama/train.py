@@ -287,3 +287,13 @@ file = open(model_dir + 'average_per_batch_valid_losses.csv', 'w+', newline ='')
 with file:
     write = csv.writer(file)
     write.writerow(avg_valid_losses)
+
+# create a text file with all hyperparameters in it
+file = open(model_dir + 'hyperparameters.txt', 'w+')
+file.write("BATCH_SIZE: " + str(BATCH_SIZE) + "\n")
+file.write("EPOCHS: " + str(EPOCHS) + "\n")
+file.write("MODEL_DIM: " + str(MODEL_DIM) + "\n")
+file.write("NUM_HEADS: " + str(MODEL_N_HEADS) + "\n")
+file.write("NUM_LAYERS: " + str(MODEL_N_LAYERS) + "\n")
+file.write("NUM_TRAIN_DATA: " + str(len(train_data)) + "\n")
+file.write("NUM_VALID_DATA: " + str(len(valid_data)) + "\n")
