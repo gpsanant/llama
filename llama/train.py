@@ -29,7 +29,7 @@ MAX_SEQ_LEN: int = 2048
 BATCH_SIZE: int = 32
 EPOCHS = 20
 
-MODEL_DIM = 512
+MODEL_DIM = 256
 MODEL_N_HEADS = 8
 MODEL_N_LAYERS = 8
 
@@ -186,11 +186,11 @@ def train(model: torch.nn.Module) -> None:
             print("output", output)            
             loss = criterion(output.view(-1, tokenizer.n_words),
                              targets.view(-1, tokenizer.n_words))
-            loss.requires_grad = True
+            # loss.requires_grad = True
             
             loss.backward()
             
-            # torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.5)
             optimizer.step()
             total_loss += loss.item()
             del data
