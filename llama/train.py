@@ -21,9 +21,9 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DEVICE = "cuda"
 TOKENIZER_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
 TRAIN_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/00.jsonl.zst"
-NUM_TRAIN_DATA = 80000
+NUM_TRAIN_DATA = 3200
 VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
-NUM_VALID_DATA = 10000
+NUM_VALID_DATA = 400
 
 MAX_SEQ_LEN: int = 2048
 BATCH_SIZE: int = 32
@@ -44,10 +44,18 @@ NUM_VALID_DATA = NUM_VALID_DATA // BATCH_SIZE * BATCH_SIZE
 
 def data_process(raw_text_iter: dataset.IterableDataset) -> torch.Tensor:
     # Tokenize and sort by number of tokens in sequence
+    #TODO: move deletion of short data after tokenizing
+    #TODO: consider the initial model parameters, are zero, or somehow wrong another way?
+    #TODO: what starting position when you pass forward through the model?
+    #TODO: how many output tokens do we want? We think all.
+    print("starting tokenizing", time.time() - start_time)
     prompt_tokens = [tokenizer.encode(x, bos=True, eos=False) for x in raw_text_iter]
+    print("finished tokenizing, start truncating", time.time() - start_time)
     for prompt in prompt_tokens:
         del prompt[MAX_SEQ_LEN + 1:]
+    print("finished truncating, start sorting", time.time() - start_time)
     prompt_tokens.sort(key=len)
+    print("finish sorting", time.time() - start_time)
 
     tokens = torch.full((len(prompt_tokens), MAX_SEQ_LEN + 1), tokenizer.pad_id).cpu().long()
     for k, t in enumerate(prompt_tokens):
@@ -69,14 +77,14 @@ def get_batch(source: torch.Tensor, i: int) -> Tuple[torch.Tensor, torch.Tensor]
         seq_len = torch.min(min_lens) - 1
         
     # Add 1 to fix -1 values to 0 so one_hot doesn't get mad
-    target = source[idx:idx+BATCH_SIZE:, 1:seq_len+1] + 1
-    targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words + 1)
+    target = source[idx:idx+BATCH_SIZE, 1:seq_len+1]
+    targets = torch.nn.functional.one_hot(target, num_classes=tokenizer.n_words)
     
     # Return to correct tokens by removing the first row
-    return data[:,:seq_len].to(DEVICE), targets[:,:,1:].type(torch.cuda.FloatTensor).to(DEVICE)
+    return data[:,:seq_len].to(DEVICE), targets.type(torch.cuda.FloatTensor).to(DEVICE)
 
 start_time = time.time()
-print("Loading Datasets")
+print("Loading Datasets", start_time)
 
 # Read in test data from Pile (this is just a start)
 # Download this according to the project instructions
@@ -143,22 +151,23 @@ print(f"Loaded in {time.time() - start_time:.2f} seconds")
 
 lr = 0.0001
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=lr, betas=(0.9, 0.98), eps=1e-9)
+optimizer = torch.optim.AdamW(model.parameters(), lr=lr, betas=(0.9, 0.95), eps=1e-9)
 
 train_losses = []
+# set so model will always be saved after first epoch
 valid_losses = [float('inf')]
 
 # Randomize model weights
-for p in model.parameters():
-    if p.dim() > 1:
-        torch.nn.init.xavier_uniform_(p)
+#for p in model.parameters():
+#    if p.dim() > 1:
+#        torch.nn.init.xavier_uniform_(p)
 
 def train(model: torch.nn.Module) -> None:
     total_loss = 0.
     start_time = time.time()
     num_train_batches = len(train_data) // BATCH_SIZE
     num_valid_batches = len(valid_data) // BATCH_SIZE
-    log_interval = 150
+    log_interval = 25
 
     
     for epoch in range(EPOCHS):
@@ -172,7 +181,8 @@ def train(model: torch.nn.Module) -> None:
                 torch.cuda.empty_cache()
                 continue
             output = model(data, 0)
-            
+            print("output shape", output.shape)
+            print("output", output)            
             loss = criterion(output.view(-1, tokenizer.n_words),
                              targets.view(-1, tokenizer.n_words))
             loss.requires_grad = True
