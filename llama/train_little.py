@@ -30,12 +30,12 @@ BATCH_SIZE: int = 16
 VALID_BATCH_SIZE: int = 1
 EPOCHS = 100
 
-MODEL_DIM = 256
+MODEL_DIM = 128
 MODEL_N_HEADS = 8
 MODEL_N_LAYERS = 8
 
 OUTPUT_DIR = r"/mmfs1/gscratch/scrubbed/ebdaniel/llama/models"
-MODEL_NAME = "standard"
+MODEL_NAME = "little"
 
 # Make sure everything is divisible by batch size
 NUM_TRAIN_DATA = NUM_TRAIN_DATA // BATCH_SIZE * BATCH_SIZE
