@@ -251,6 +251,34 @@ def train(model: torch.nn.Module) -> None:
         sum_valid_losses.append(epoch_valid_loss)
         avg_valid_losses.append(epoch_valid_loss / len(valid_data))
 
+        write_progress()
+
+# a function for writing our to all of the csvs
+def write_progress():
+    file = open(model_dir + 'sum_train_losses.csv', 'w+', newline ='')
+    with file:
+        write = csv.writer(file)
+        write.writerow(sum_train_losses)
+
+    file = open(model_dir + 'average_per_batch_train_losses.csv', 'w+', newline ='')
+    with file:
+        write = csv.writer(file)
+        write.writerow(avg_train_losses)
+
+    file = open(model_dir + 'train_times.csv', 'w+', newline ='')
+    with file:
+        write = csv.writer(file)
+        write.writerow(train_times)
+
+    file = open(model_dir + 'sum_valid_losses.csv', 'w+', newline ='')
+    with file:
+        write = csv.writer(file)
+        write.writerow(sum_valid_losses)
+
+    file = open(model_dir + 'average_per_batch_valid_losses.csv', 'w+', newline ='')
+    with file:
+        write = csv.writer(file)
+        write.writerow(avg_valid_losses)
 
 
 # Create model directory to write in
@@ -274,29 +302,4 @@ train(model.to(DEVICE))
 print(f"Trained in {time.time() - total_start_time:.2f} seconds")
 
 # Write out results to a csv for plotting later
-file = open(model_dir + 'sum_train_losses.csv', 'w+', newline ='')
-with file:
-    write = csv.writer(file)
-    write.writerow(sum_train_losses)
-
-file = open(model_dir + 'average_per_batch_train_losses.csv', 'w+', newline ='')
-with file:
-    write = csv.writer(file)
-    write.writerow(avg_train_losses)
-
-file = open(model_dir + 'train_times.csv', 'w+', newline ='')
-with file:
-    write = csv.writer(file)
-    write.writerow(train_times)
-
-file = open(model_dir + 'sum_valid_losses.csv', 'w+', newline ='')
-with file:
-    write = csv.writer(file)
-    write.writerow(sum_valid_losses)
-
-file = open(model_dir + 'average_per_batch_valid_losses.csv', 'w+', newline ='')
-with file:
-    write = csv.writer(file)
-    write.writerow(avg_valid_losses)
-
-
+write_progress()
