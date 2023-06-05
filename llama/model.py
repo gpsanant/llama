@@ -122,12 +122,30 @@ class Attention(nn.Module):
     def forward(self, x: torch.Tensor, start_pos: int, freqs_cis: torch.Tensor, mask: Optional[torch.Tensor]):
         # bsz is batch size
         # seqlen is length of sequences
+        # print("In attention module, forward")
+        # print("x shape", x)
+        # print("x", x)
+        # print("start_pos", start_pos)
+        # print("freqs_cis shape", freqs_cis.shape)
+        # print("freqs_cis", freqs_cis)
         bsz, seqlen, _ = x.shape
         xq, xk, xv = self.wq(x), self.wk(x), self.wv(x)
+        # print("xq shape through weight", xq.shape)
+        # print("xk shape through weight", xk.shape)
+        # print("xv shape through weight", xv.shape)
+        # print("xq", xq)
+        # print("xk", xk)
+        # print("xv", xv)
 
         xq = xq.view(bsz, seqlen, self.n_local_heads, self.head_dim)
         xk = xk.view(bsz, seqlen, self.n_local_heads, self.head_dim)
         xv = xv.view(bsz, seqlen, self.n_local_heads, self.head_dim)
+        # print("xq shape after view", xq.shape)
+        # print("xk shape after view", xk.shape)
+        # print("xv shape after view", xv.shape)
+        # print("xq", xq)
+        # print("xk", xk)
+        # print("xv", xv)
 
         xq, xk = apply_rotary_emb(xq, xk, freqs_cis=freqs_cis)
 

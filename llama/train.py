@@ -138,9 +138,9 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
-torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
+# torch.set_default_tensor_type(torch.cuda.HalfTensor) # TODO: I don't have a gpu on my laptop
 model = llama.Transformer(model_args)
-# torch.set_default_tensor_type(torch.FloatTensor)
+torch.set_default_tensor_type(torch.FloatTensor)
 
 print(f"Loaded in {time.time() - start_time:.2f} seconds")
 
@@ -180,23 +180,27 @@ def train(model: torch.nn.Module) -> None:
                 del targets
                 torch.cuda.empty_cache()
                 continue
+            torch.autograd.set_detect_anomaly(True)
             optimizer.zero_grad()
             output = model(data, 0)
             print("output shape", output.shape)
-            print("output", output)            
+            print("output", output)
             loss = criterion(output.view(-1, tokenizer.n_words),
                              targets.view(-1, tokenizer.n_words))
             # loss.requires_grad = True
             
             loss.backward()
+            print("loss", loss.item())
             
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.5)
             optimizer.step()
             total_loss += loss.item()
+
             del data
             del targets
             del loss
             torch.cuda.empty_cache()
+
             if batch % log_interval == 0 and batch > 0:
                 ms_per_batch = (time.time() - start_time) * 1000 / log_interval
                 cur_loss = total_loss / log_interval
