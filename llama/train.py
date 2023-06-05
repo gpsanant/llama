@@ -21,13 +21,13 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DEVICE = "cuda"
 TOKENIZER_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
 TRAIN_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/00.jsonl.zst"
-NUM_TRAIN_DATA = 3200
+NUM_TRAIN_DATA = 800
 VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
-NUM_VALID_DATA = 400
+NUM_VALID_DATA = 100
 
 MAX_SEQ_LEN: int = 2048
 BATCH_SIZE: int = 32
-EPOCHS = 8
+EPOCHS = 20
 
 MODEL_DIM = 512
 MODEL_N_HEADS = 8
@@ -180,6 +180,7 @@ def train(model: torch.nn.Module) -> None:
                 del targets
                 torch.cuda.empty_cache()
                 continue
+            optimizer.zero_grad()
             output = model(data, 0)
             print("output shape", output.shape)
             print("output", output)            
@@ -187,10 +188,9 @@ def train(model: torch.nn.Module) -> None:
                              targets.view(-1, tokenizer.n_words))
             loss.requires_grad = True
             
-            optimizer.zero_grad()
             loss.backward()
             
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+            # torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
             optimizer.step()
             total_loss += loss.item()
             del data

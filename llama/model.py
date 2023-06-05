@@ -9,12 +9,12 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-import fairscale.nn.model_parallel.initialize as fs_init
-from fairscale.nn.model_parallel.layers import (
-    ParallelEmbedding,
-    RowParallelLinear,
-    ColumnParallelLinear,
-)
+# import fairscale.nn.model_parallel.initialize as fs_init
+# from fairscale.nn.model_parallel.layers import (
+    # ParallelEmbedding,
+    # RowParallelLinear,
+    # ColumnParallelLinear,
+# )
 
 
 @dataclass
@@ -28,7 +28,7 @@ class ModelArgs:
 
     max_batch_size: int = 32
     max_seq_len: int = 2048
-    device: str = 'cpu'
+    device: str = 'cuda' # changed to run on gpu
 
 
 class RMSNorm(torch.nn.Module):
@@ -78,7 +78,9 @@ class Attention(nn.Module):
     def __init__(self, args: ModelArgs):
         super().__init__()
 
-        self.n_local_heads = args.n_heads // fs_init.get_model_parallel_world_size()
+        # self.n_local_heads = args.n_heads // fs_init.get_model_parallel_world_size()
+        # parallel world size should be 1 when nothing is parallel
+        self.n_local_heads = args.n_heads // 1
         self.head_dim = args.dim // args.n_heads
 
         self.wq = torch.nn.Linear(
@@ -135,6 +137,9 @@ class Attention(nn.Module):
 
         keys = self.cache_k[:bsz, : start_pos + seqlen]
         values = self.cache_v[:bsz, : start_pos + seqlen]
+
+        #keys = xk
+        #values = xv
 
         xq = xq.transpose(1, 2)
         keys = keys.transpose(1, 2)
@@ -225,7 +230,7 @@ class Transformer(nn.Module):
             self.params.dim // self.params.n_heads, self.params.max_seq_len * 2
         )
 
-    @torch.inference_mode()
+    #@torch.inference_mode()
     def forward(self, tokens: torch.Tensor, start_pos: int):
         _bsz, seqlen = tokens.shape
         h = self.tok_embeddings(tokens)
