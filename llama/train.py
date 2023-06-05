@@ -21,21 +21,21 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DEVICE = "cuda"
 TOKENIZER_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
 TRAIN_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/00.jsonl.zst"
-NUM_TRAIN_DATA = 800
+NUM_TRAIN_DATA = 20000
 VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
-NUM_VALID_DATA = 100
+NUM_VALID_DATA = 10000
 
 MAX_SEQ_LEN: int = 2048
 BATCH_SIZE: int = 16
 VALID_BATCH_SIZE: int = 1
-EPOCHS = 3
+EPOCHS = 10
 
-MODEL_DIM = 256
+MODEL_DIM = 128
 MODEL_N_HEADS = 8
 MODEL_N_LAYERS = 8
 
-OUTPUT_DIR = r"/mmfs1/gscratch/scrubbed/ebdaniel/llama/models" # needs to already exist
-MODEL_NAME = "baby_model_2" # include hyperparams, time
+OUTPUT_DIR = r"/mmfs1/gscratch/scrubbed/ebdaniel/llama/models"
+MODEL_NAME = "lower"
 
 # Make sure everything is divisible by batch size
 NUM_TRAIN_DATA = NUM_TRAIN_DATA // BATCH_SIZE * BATCH_SIZE
