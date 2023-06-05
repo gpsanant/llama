@@ -181,7 +181,6 @@ def train(model: torch.nn.Module) -> None:
         epoch_train_start_time = time.time()
 
         for batch in range(num_train_batches):
-            batch += 63
             data, targets = get_batch(train_data, batch, BATCH_SIZE)
             if  (data.shape[1] < 10):
                 del data
