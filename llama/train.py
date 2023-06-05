@@ -258,6 +258,17 @@ model_dir = OUTPUT_DIR + '/' + MODEL_NAME + '/'
 os.makedirs(model_dir)
 
 print("Starting to train model!")
+
+# create a text file with all hyperparameters in it
+file = open(model_dir + 'hyperparameters.txt', 'w+')
+file.write("BATCH_SIZE: " + str(BATCH_SIZE) + "\n")
+file.write("EPOCHS: " + str(EPOCHS) + "\n")
+file.write("MODEL_DIM: " + str(MODEL_DIM) + "\n")
+file.write("NUM_HEADS: " + str(MODEL_N_HEADS) + "\n")
+file.write("NUM_LAYERS: " + str(MODEL_N_LAYERS) + "\n")
+file.write("NUM_TRAIN_DATA: " + str(len(train_data)) + "\n")
+file.write("NUM_VALID_DATA: " + str(len(valid_data)) + "\n")
+
 total_start_time = time.time()
 train(model.to(DEVICE))
 print(f"Trained in {time.time() - total_start_time:.2f} seconds")
@@ -288,12 +299,4 @@ with file:
     write = csv.writer(file)
     write.writerow(avg_valid_losses)
 
-# create a text file with all hyperparameters in it
-file = open(model_dir + 'hyperparameters.txt', 'w+')
-file.write("BATCH_SIZE: " + str(BATCH_SIZE) + "\n")
-file.write("EPOCHS: " + str(EPOCHS) + "\n")
-file.write("MODEL_DIM: " + str(MODEL_DIM) + "\n")
-file.write("NUM_HEADS: " + str(MODEL_N_HEADS) + "\n")
-file.write("NUM_LAYERS: " + str(MODEL_N_LAYERS) + "\n")
-file.write("NUM_TRAIN_DATA: " + str(len(train_data)) + "\n")
-file.write("NUM_VALID_DATA: " + str(len(valid_data)) + "\n")
+
