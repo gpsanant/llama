@@ -1,5 +1,4 @@
 # Added files
-models/
 *.pt
 
 # Byte-compiled / optimized / DLL files
