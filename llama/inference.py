@@ -63,7 +63,12 @@ print("Loaded generator")
 
 empty_prompt_str = tokenizer.decode([tokenizer.bos_id])
 
-prompts = [empty_prompt_str]
+prompts = [
+    empty_prompt_str,
+    "A \"Burringo\" is a car with very fast acceleration. An example of a sentence that uses the word Burringo is:",
+    "Poor English input: The patient was died.",
+    "Buddhists are "
+]
 if args.prompt:
     prompts.append(args.prompt)
 
