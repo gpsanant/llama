@@ -14,6 +14,33 @@ Then in this repository:
 pip install -e .
 ```
 
+### Additional setup to replicate HW2 experiments
+```
+pip install zstandard
+```
+In order to run the different experiments, you can either change the model parameters, which are the global variables at the top of train.py, or you can run the two training scripts with parameters we have set up. train.py corresponds to our baseline, and train_little.py corresponds to our little graph.
+
+At the top of these training files, modifying the following variables with your desired values:
+```python
+TOKENIZER_PATH = # path to tokenizer model
+TRAIN_DATA_PATH = # path to training data file
+NUM_TRAIN_DATA = # number of training data points to train on per epoch
+VALID_DATA_PATH = # path to validation data file
+NUM_VALID_DATA = # number of validation data points to evaluate on per epoch
+
+MAX_SEQ_LEN: int = # the maximum input size (in tokens) the model will accept
+BATCH_SIZE: int = # the batch size at which resolution gradient steps will be taken
+EPOCHS = # number of epochs to train for
+
+MODEL_DIM = # the dimension of the model
+MODEL_N_HEADS = # number of attention heads in the model
+MODEL_N_LAYERS = # number of transformer layers in the model
+
+OUTPUT_DIR = # the directory to output the training metadata and model weights
+```
+
+Refer to the slurm scripts in the top level directory for running training using the slurm workload manager.
+
 ## Download
 
 Once your request is approved, you will receive links to download the tokenizer and model files.
@@ -21,19 +48,7 @@ Edit the `download.sh` script with the signed url provided in the email to downl
 
 ## Inference
 
-The provided `example.py` can be run on a single or multi-gpu node with `torchrun` and will output completions for two pre-defined prompts. Using `TARGET_FOLDER` as defined in `download.sh`:
-```
-torchrun --nproc_per_node MP example.py --ckpt_dir $TARGET_FOLDER/model_size --tokenizer_path $TARGET_FOLDER/tokenizer.model
-```
-
-Different models require different MP values:
-
-|  Model | MP |
-|--------|----|
-| 7B     | 1  |
-| 13B    | 2  |
-| 33B    | 4  |
-| 65B    | 8  |
+Look at [GENERATION.md](GENERATION.md).
 
 ## FAQ
 

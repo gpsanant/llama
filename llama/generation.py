@@ -6,11 +6,11 @@ from typing import List
 import torch
 
 from llama.tokenizer import Tokenizer
-from llama.model import Transformer
+from llama.model import TransformerInference
 
 
 class LLaMA:
-    def __init__(self, model: Transformer, tokenizer: Tokenizer):
+    def __init__(self, model: TransformerInference, tokenizer: Tokenizer):
         self.model = model
         self.tokenizer = tokenizer
 

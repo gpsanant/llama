@@ -9,12 +9,12 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-import fairscale.nn.model_parallel.initialize as fs_init
-from fairscale.nn.model_parallel.layers import (
-    ParallelEmbedding,
-    RowParallelLinear,
-    ColumnParallelLinear,
-)
+# import fairscale.nn.model_parallel.initialize as fs_init
+# from fairscale.nn.model_parallel.layers import (
+    # ParallelEmbedding,
+    # RowParallelLinear,
+    # ColumnParallelLinear,
+# )
 
 
 @dataclass
@@ -28,7 +28,7 @@ class ModelArgs:
 
     max_batch_size: int = 32
     max_seq_len: int = 2048
-    device: str = 'cpu'
+    device: str = 'cuda' # changed to run on gpu
 
 
 class RMSNorm(torch.nn.Module):
@@ -78,63 +78,88 @@ class Attention(nn.Module):
     def __init__(self, args: ModelArgs):
         super().__init__()
 
-        self.n_local_heads = args.n_heads // fs_init.get_model_parallel_world_size()
+        # self.n_local_heads = args.n_heads // fs_init.get_model_parallel_world_size()
+        # parallel world size should be 1 when nothing is parallel
+        self.n_local_heads = args.n_heads // 1
         self.head_dim = args.dim // args.n_heads
 
-        self.wq = ColumnParallelLinear(
+        self.wq = torch.nn.Linear(
             args.dim,
             args.n_heads * self.head_dim,
             bias=False,
-            gather_output=False,
+            #gather_output=False,
             # init_method=lambda x: x,
         )
-        self.wk = ColumnParallelLinear(
+        self.wk = torch.nn.Linear(
             args.dim,
             args.n_heads * self.head_dim,
             bias=False,
-            gather_output=False,
+            #gather_output=False,
             # init_method=lambda x: x,
         )
-        self.wv = ColumnParallelLinear(
+        self.wv = torch.nn.Linear(
             args.dim,
             args.n_heads * self.head_dim,
             bias=False,
-            gather_output=False,
+            #gather_output=False,
             # init_method=lambda x: x,
         )
-        self.wo = RowParallelLinear(
+        self.wo = torch.nn.Linear(
             args.n_heads * self.head_dim,
             args.dim,
             bias=False,
-            input_is_parallel=True,
+            # input_is_parallel=True,
             # init_method=lambda x: x,
         )
 
-        self.cache_k = torch.zeros(
-            (args.max_batch_size, args.max_seq_len, self.n_local_heads, self.head_dim)
-        ).to(device=args.device)
-        self.cache_v = torch.zeros(
-            (args.max_batch_size, args.max_seq_len, self.n_local_heads, self.head_dim)
-        ).to(device=args.device)
+        # self.cache_k = torch.zeros(
+            # (args.max_batch_size, args.max_seq_len, self.n_local_heads, self.head_dim)
+        # ).to(device=args.device)
+        # self.cache_v = torch.zeros(
+            # (args.max_batch_size, args.max_seq_len, self.n_local_heads, self.head_dim)
+        # ).to(device=args.device)
 
     def forward(self, x: torch.Tensor, start_pos: int, freqs_cis: torch.Tensor, mask: Optional[torch.Tensor]):
+        # bsz is batch size
+        # seqlen is length of sequences
+        # print("In attention module, forward")
+        # print("x shape", x)
+        # print("x", x)
+        # print("start_pos", start_pos)
+        # print("freqs_cis shape", freqs_cis.shape)
+        # print("freqs_cis", freqs_cis)
         bsz, seqlen, _ = x.shape
         xq, xk, xv = self.wq(x), self.wk(x), self.wv(x)
+        # print("xq shape through weight", xq.shape)
+        # print("xk shape through weight", xk.shape)
+        # print("xv shape through weight", xv.shape)
+        # print("xq", xq)
+        # print("xk", xk)
+        # print("xv", xv)
 
         xq = xq.view(bsz, seqlen, self.n_local_heads, self.head_dim)
         xk = xk.view(bsz, seqlen, self.n_local_heads, self.head_dim)
         xv = xv.view(bsz, seqlen, self.n_local_heads, self.head_dim)
+        # print("xq shape after view", xq.shape)
+        # print("xk shape after view", xk.shape)
+        # print("xv shape after view", xv.shape)
+        # print("xq", xq)
+        # print("xk", xk)
+        # print("xv", xv)
 
         xq, xk = apply_rotary_emb(xq, xk, freqs_cis=freqs_cis)
 
-        self.cache_k = self.cache_k.to(xq)
-        self.cache_v = self.cache_v.to(xq)
+        # self.cache_k = self.cache_k.to(xq)
+        # self.cache_v = self.cache_v.to(xq)
 
-        self.cache_k[:bsz, start_pos : start_pos + seqlen] = xk
-        self.cache_v[:bsz, start_pos : start_pos + seqlen] = xv
+        # self.cache_k[:bsz, start_pos : start_pos + seqlen] = xk
+        # self.cache_v[:bsz, start_pos : start_pos + seqlen] = xv
 
-        keys = self.cache_k[:bsz, : start_pos + seqlen]
-        values = self.cache_v[:bsz, : start_pos + seqlen]
+        # keys = self.cache_k[:bsz, : start_pos + seqlen]
+        # values = self.cache_v[:bsz, : start_pos + seqlen]
+
+        keys = xk
+        values = xv
 
         xq = xq.transpose(1, 2)
         keys = keys.transpose(1, 2)
@@ -162,14 +187,14 @@ class FeedForward(nn.Module):
         hidden_dim = int(2 * hidden_dim / 3)
         hidden_dim = multiple_of * ((hidden_dim + multiple_of - 1) // multiple_of)
 
-        self.w1 = ColumnParallelLinear(
-            dim, hidden_dim, bias=False, gather_output=False, init_method=lambda x: x
+        self.w1 = torch.nn.Linear(
+            dim, hidden_dim, bias=False#, gather_output=False#init_method=lambda x: x
         )
-        self.w2 = RowParallelLinear(
-            hidden_dim, dim, bias=False, input_is_parallel=True, init_method=lambda x: x
+        self.w2 = torch.nn.Linear(
+            hidden_dim, dim, bias=False#input_is_parallel=True, init_method=lambda x: x
         )
-        self.w3 = ColumnParallelLinear(
-            dim, hidden_dim, bias=False, gather_output=False, init_method=lambda x: x
+        self.w3 = torch.nn.Linear(
+            dim, hidden_dim, bias=False#, gather_output=False# init_method=lambda x: x
         )
 
     def forward(self, x):
@@ -203,8 +228,10 @@ class Transformer(nn.Module):
         self.vocab_size = params.vocab_size
         self.n_layers = params.n_layers
 
-        self.tok_embeddings = ParallelEmbedding(
-            params.vocab_size, params.dim, init_method=lambda x: x
+        self.tok_embeddings = torch.nn.Embedding(
+            params.vocab_size,
+            params.dim,
+            # init_method=lambda x: x
         )
 
         self.layers = torch.nn.ModuleList()
@@ -212,15 +239,18 @@ class Transformer(nn.Module):
             self.layers.append(TransformerBlock(layer_id, params))
 
         self.norm = RMSNorm(params.dim, eps=params.norm_eps)
-        self.output = ColumnParallelLinear(
-            params.dim, params.vocab_size, bias=False, init_method=lambda x: x
+        self.output = torch.nn.Linear(
+            params.dim,
+            params.vocab_size,
+            bias=False,
+            # init_method=lambda x: x
         )
 
         self.freqs_cis = precompute_freqs_cis(
             self.params.dim // self.params.n_heads, self.params.max_seq_len * 2
         )
 
-    @torch.inference_mode()
+    #@torch.inference_mode()
     def forward(self, tokens: torch.Tensor, start_pos: int):
         _bsz, seqlen = tokens.shape
         h = self.tok_embeddings(tokens)
@@ -236,4 +266,51 @@ class Transformer(nn.Module):
             h = layer(h, start_pos, freqs_cis, mask)
         h = self.norm(h)
         output = self.output(h)  # do not only compute last logits!
+        return output.float()
+
+class TransformerInference(nn.Module):
+    def __init__(self, params: ModelArgs):
+        super().__init__()
+        self.params = params
+        self.vocab_size = params.vocab_size
+        self.n_layers = params.n_layers
+
+        self.tok_embeddings = torch.nn.Embedding(
+            params.vocab_size,
+            params.dim,
+            # init_method=lambda x: x
+        )
+
+        self.layers = torch.nn.ModuleList()
+        for layer_id in range(params.n_layers):
+            self.layers.append(TransformerBlock(layer_id, params))
+
+        self.norm = RMSNorm(params.dim, eps=params.norm_eps)
+        self.output = torch.nn.Linear(
+            params.dim,
+            params.vocab_size,
+            bias=False,
+            # init_method=lambda x: x
+        )
+
+        self.freqs_cis = precompute_freqs_cis(
+            self.params.dim // self.params.n_heads, self.params.max_seq_len * 2
+        )
+
+    #@torch.inference_mode()
+    def forward(self, tokens: torch.Tensor, start_pos: int):
+        _bsz, seqlen = tokens.shape
+        h = self.tok_embeddings(tokens)
+        self.freqs_cis = self.freqs_cis.to(h.device)
+        freqs_cis = self.freqs_cis[start_pos : start_pos + seqlen]
+
+        mask = None
+        if seqlen > 1:
+            mask = torch.full((1, 1, seqlen, seqlen), float("-inf"), device=tokens.device)
+            mask = torch.triu(mask, diagonal=start_pos + 1).type_as(h)
+
+        for layer in self.layers:
+            h = layer(h, start_pos, freqs_cis, mask)
+        h = self.norm(h)
+        output = self.output(h[:, -1, :])  # only compute last logits
         return output.float()
