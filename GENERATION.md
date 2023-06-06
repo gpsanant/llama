@@ -5,7 +5,6 @@ This script uses the LLaMA model to generate text based on the provided prompts.
 ## Requirements
 
 - Python 3.7 or higher
-- `llama` library
 - PyTorch
 - CUDA-enabled GPU (optional)
 
