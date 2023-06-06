@@ -3,7 +3,7 @@ import llama
 import torch
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--little", help="Activate the --little flag.")
+parser.add_argument("--little", action="store_true", help="Activate the --little flag.")
 parser.add_argument("--tokenizer-path", type=str, help="Provide a path to the tokenizer.")
 parser.add_argument("--model-path", type=str, help="Provide a path to the model.")
 parser.add_argument("--temperature", type=float, help="Provide a temperature for generation.")
