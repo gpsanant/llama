@@ -1,11 +1,14 @@
 import llama
+import torch
 
-TOKENIZER_PATH="llama/tokenizer"
-MODEL_PATH="llama/model"
-
+TOKENIZER_PATH="/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
+MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/baseline/model_epoch_14.pt"
 
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
 model = llama.Transformer(model_path=MODEL_PATH)
+
+if torch.cuda.is_available():
+    model = model.cuda()
 
 generator = llama.LLaMA(model, tokenizer)
 
