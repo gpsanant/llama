@@ -24,6 +24,8 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     n_heads=MODEL_N_HEADS,
     n_layers=MODEL_N_LAYERS,
     device=DEVICE)
+model_args.vocab_size = tokenizer.n_words
+
 model = llama.Transformer(model_args)
 model.load_state_dict(torch.load(MODEL_PATH))
 model.eval()
