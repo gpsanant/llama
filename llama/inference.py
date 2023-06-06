@@ -1,5 +1,5 @@
 import argparse
-import llama
+from llama import LLaMA, ModelArgs, TransformerInference, Tokenizer
 import torch
 
 parser = argparse.ArgumentParser()
@@ -34,12 +34,12 @@ if args.model_path:
 elif args.little:
     MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/little/model_epoch_14.pt"
 
-tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
+tokenizer = Tokenizer(model_path=TOKENIZER_PATH)
 
 if args.little:
     MODEL_DIM = 128
 
-model_args: llama.ModelArgs = llama.ModelArgs(
+model_args: ModelArgs = ModelArgs(
     max_seq_len=MAX_SEQ_LEN,
     max_batch_size=BATCH_SIZE,
     dim=MODEL_DIM,
@@ -48,7 +48,7 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
-model = llama.TransformerInference(model_args)
+model = TransformerInference(model_args)
 model.load_state_dict(torch.load(MODEL_PATH))
 model.eval()
 
@@ -57,7 +57,7 @@ print("Loaded model")
 if torch.cuda.is_available():
     model = model.cuda()
 
-generator = llama.LLaMA(model, tokenizer)
+generator = LLaMA(model, tokenizer)
 
 print("Loaded generator")
 
