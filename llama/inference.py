@@ -48,7 +48,7 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
-model = llama.TransformerInference(model_args)
+model = llama.Transformer(model_args)
 model.load_state_dict(torch.load(MODEL_PATH))
 model.eval()
 
