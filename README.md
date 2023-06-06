@@ -41,23 +41,7 @@ OUTPUT_DIR = # the directory to output the training metadata and model weights
 
 Refer to the slurm scripts in the top level directory for running training using the slurm workload manager.
 
-Note: in order to run check the slurm scripts, you will need to change the source path to the cloned llama respository. Alternatively you can simply run from the base repository llama directory and run using `torchrun`.
-
-## Download
-
-Once your request is approved, you will receive links to download the tokenizer and model files.
-Edit the `download.sh` script with the signed url provided in the email to download the model weights and tokenizer.
-
-## Inference
-
-Look at [GENERATION.md](GENERATION.md).
-
-## FAQ
-
-- [1. The download.sh script doesn't work on default bash in MacOS X](FAQ.md#1)
-- [2. Generations are bad!](FAQ.md#2)
-- [3. CUDA Out of memory errors](FAQ.md#3)
-- [4. Other languages](FAQ.md#4)
+Note: in order to run check the slurm scripts, you will need to change the source path to the cloned llama respository. Alternatively you can simply run from the base repository llama directory and run using `torchrun llama/train.py` pointing to the training script you would like to use.
 
 ## Reference
 
