@@ -32,7 +32,7 @@ MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/baseline/model_epoch_14.pt"
 if args.model_path:
     MODEL_PATH = args.model_path
 elif args.little:
-    MODEL_PATH="/mmfs1/gscratch/scrubbed/arprieve/llama_data/model_epoch_14.pt"
+    MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/little/model_epoch_14.pt"
 
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
 
