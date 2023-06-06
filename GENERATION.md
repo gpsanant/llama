@@ -36,5 +36,12 @@ python llama/inference.py [arguments]
 For example:
 
 ```shell
-python llama/inference.py --tokenizer-path ./tokenizer.model --model-path ./model.pt --temperature 0.8 --max-gen-len 250 --prompt "Mommy: Generate some good text, son. Son: "
+python inference.py --tokenizer-path /mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model --model-path ../models/baseline/model_epoch_14.pt --temperature 1 --max-gen-len 75 --prompt "What should I make my xbox gamertag"
+```
+
+or, for the little model,
+
+```shell
+python inference.py --little --tokenizer-path /mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model --
+model-path ../models/little/model_epoch_14.pt --temperature 1 --max-gen-len 75 --prompt "What should I make my xbox gamertag"
 ```
