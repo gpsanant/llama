@@ -1,0 +1,116 @@
+This shows one of our example batches with shape:  torch.Size([16, 21]) 
+
+### SEQUENCE 0
+tensor([    1,   306, 29915,   345,  2360,  3595,   590,  1487,   437,   577,
+         1532,   373,   263,  5844,  1243,  1434,    13,    13, 29896, 29941,
+        29947])
+I've never seen my son do so well on a math test before
+
+138
+
+### SEQUENCE 1
+tensor([    1,   365, 19453, 29965, 10461, 29871, 29900, 29916, 29929, 29892,
+        29900, 29916, 29896, 30004,    13, 29896, 29871, 29896, 29896, 10888,
+        29954])
+LANGUAGE 0x9,0x1
+1 11 MSG
+
+### SEQUENCE 2
+tensor([    1,   315,  4590, 29979, 11646,  1326,  3642,  1455,   515,   525,
+        29925, 24668, 29914, 16123,  3642,  1455, 29889,  4130, 29915,  3148,
+         4214])
+COPY INTO províncial from 'PWD/províncial.dat' USING
+
+### SEQUENCE 3
+tensor([    1,   341, 11321, 29892,  2661,  6405,    13,    13, 29924, 11321,
+          338,   263,  5720,   297,   323,  4170,  1459,   728, 29892,   349,
+         1215])
+Muti, Estonia
+
+Muti is a village in Tori Parish, Pär
+
+### SEQUENCE 4
+tensor([    1,  7357,   523, 10742, 13075,   508,   367, 12012,  2955,   411,
+         1422,  1652,   927,  4072, 29889,   450,  3625,  3573, 17279,  3160,
+         1302])
+Straight waveguide can be manufactured with different flange types. The available body materials include co
+
+### SEQUENCE 5
+tensor([    1, 29871, 29896, 29929, 29947, 29947,  3303,  3900,  5619,   310,
+        28757, 20209,   297, 19171,    13,    13,  1525,  4571, 26282, 29871,
+        29896])
+1988 United States House of Representatives elections in Missouri
+
+REDIRECT 1
+
+### SEQUENCE 6
+tensor([    1,  9897,  1627, 29879,    13,    13,  8439,   526,  5279,   694,
+         2143,  1627, 29879, 29889,    13,    13, 21076,  3726,   491,   278,
+         8907])
+Refbacks
+
+There are currently no refbacks.
+
+Published by the Institute
+
+### SEQUENCE 7
+tensor([    1,   445,  1410, 29891,   338,  6216,   408,   285,  2707,   448,
+         5360,   263,  1410, 29891,   282,   790,   292,   373,  3654, 29892,
+         7148])
+this guy is fit as fuck - love a guy pissing on himself, especially
+
+### SEQUENCE 8
+tensor([    1,   399,   340, 29889, 14227,   342,   423,  3430,  2253,   411,
+          901, 14744, 29899,  9539, 11315,  1135,   393, 17251, 29890,  8268,
+         6433])
+Wow. Celestia looks better with more sky-blue hair than that rainbowy stuff
+
+### SEQUENCE 9
+tensor([    1,  9034, 11416,   297, 29591,   322,  4359, 29591, 20815,  1335,
+        29899, 13072, 27331,  6757, 29889,    13,  3112,   338,  4318,   393,
+          263])
+Persistence in periodic and almost periodic Lotka-Volterra systems.
+It is shown that a
+
+### SEQUENCE 10
+tensor([    1,   450,  1494,  7805,  2472,   393,  1122,   367,  5407,   297,
+         8004,   278,  2198,   297,  7316, 29898, 29879,   467,   739,   338,
+          451])
+The following includes information that may be useful in understanding the present invention(s). It is not
+
+### SEQUENCE 11
+tensor([    1, 29871, 29955, 29953, 29955,   383, 29889, 29906, 29881, 29871,
+        29929, 29941, 29900,    13, 29911, 11017, 29894, 29889, 29209,    13,
+        29947])
+767 F.2d 930
+Taylorv.Smith
+8
+
+### SEQUENCE 12
+tensor([    1,  1632, 29948, 29920,   713,    13,    13,  3338, 29948, 29920,
+          713,   338,   263,  7096,   297,   278, 24838,   267, 29899, 29925,
+         4316])
+Grézian
+
+Grézian is a commune in the Hautes-Pyr
+
+### SEQUENCE 13
+tensor([    1,   849, 14187,  1266, 29871, 29906, 29900, 29896, 29955,   450,
+         2921, 13189,   943, 29889,  2178, 10462, 21676, 29889,    13,   458,
+         4803])
+// Copyright 2017 The Go Authors. All rights reserved.
+// Use
+
+### SEQUENCE 14
+tensor([    1,   910,  5846,  4971,   403,  9777, 29915, 29879, 12242,   292,
+          304, 12020, 29871, 29941, 29945, 29892, 29900, 29900, 29900,  3148,
+        29928])
+This December Skateistan's aiming to raise 35,000 USD
+
+### SEQUENCE 15
+tensor([    1,  1996,   525, 29885,  4419, 29918,   582, 29914,  8223, 29915,
+           13,    13, 29924,  4419, 29934, 29884,  1057, 29907,   407,  1057,
+         8097])
+require 'mxx_ru/cpp'
+
+MxxRu::Cpp::exe
