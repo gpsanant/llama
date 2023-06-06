@@ -13,6 +13,13 @@ Then in this repository:
 ```
 pip install -e .
 ```
+#### Additional setup to replicate HW2 experiments
+
+pip install zstandard
+```
+In order to run the different experiments, you can either change the model parameters, which are the global variables at the top of train.py, or you can run the two training scripts with parameters we have set up. train.py corresponds to our baseline, and train_little.py
+corresponds to our little graph.
+```
 
 ## Download
 

@@ -21,7 +21,7 @@ from fairscale.nn.model_parallel.initialize import initialize_model_parallel
 DEVICE = "cuda"
 TOKENIZER_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
 TRAIN_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/00.jsonl.zst"
-NUM_TRAIN_DATA = 20000
+NUM_TRAIN_DATA = 15000
 VALID_DATA_PATH = "/mmfs1/gscratch/scrubbed/arprieve/llama_data/val.jsonl.zst"
 NUM_VALID_DATA = 10000
 
