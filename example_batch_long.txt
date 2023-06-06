@@ -1,0 +1,1039 @@
+This shows one of our example batches with shape:  torch.Size([16, 473]) 
+
+### SEQUENCE 0
+tensor([    1,  2661,  7715,   310,  3144, 12392,  1070,   977,   509,   362,
+         6554,   297, 26361,   491,   263,  2323, 29899, 14073,   397,  4559,
+         1158, 21677,   474,   397,   861,   273,   324, 29889,    13,  1762,
+        10127,   263, 20875,  2323, 29899, 14073,   397, 29899, 11249,  1158,
+          313,  1744, 17061, 29897, 21677,   474,   397,   861,   273,   324,
+          304, 12678,  3144, 12392,  1070,   977,   509,   362,  6554,   313,
+        29954, 15860, 29897,   297, 26361,   322,  7252,   848,  4944,   491,
+          393,  8792,   411,   848,  4944,   491,   263, 28557,  2999, 29899,
+        14073,   397, 29899, 11249,  1158,   313,  9486, 17061, 29897, 21677,
+          297,   352,   262, 29889, 29871, 29906, 29953,  9045, 29891, 26361,
+          322, 29871, 29941, 29953, 26361,   411, 18180, 13920,   292,  4325,
+          284, 17135, 29889,   360, 12099,   892,  1304,   297,  5164,   758,
+         2576,  3821, 15729,   304, 10127,  9608, 29879,   363,   278,   317,
+         9851, 29924,   322,   278,   341,  9851, 29924,   310,   402, 15860,
+        23248, 29889,  1763, 14707,   278,  9443,  1546,   402, 15860, 29879,
+         7625,   491,   278,   317,  9851, 29924,   322,   278,   341,  9851,
+        29924,  1269, 21677,   474,   397,   861,   273,   324, 29892,   474,
+          397,   861,   273,   324,   313, 29946, 29900,   286, 29887,   310,
+          306, 29914,  9415, 29897,   471,  4113,  1531,   287,  6599,   304,
+        29871, 29906, 29953,  9045, 29891, 26361,   322, 29871, 29941, 29953,
+        26361,   411,  4325,   284, 17135, 29936, 10416,  4559,  4333,   471,
+         8560,  1434,   322,   472, 29871, 29953, 29900, 29892, 29871, 29929,
+        29900, 29892,   322, 29871, 29896, 29906, 29900,  6233,  1156,   278,
+        20859, 29889,  1763, 14707,   278,  9443,  1546,   402, 15860, 29879,
+         7625,   491,   278,   317,  9851, 29924, 21677,   474,   397,   861,
+          273,   324,   322,   278,   341,  9851, 29924, 21677,   297,   352,
+          262, 29892,   474,   397,   861,   273,   324,   313, 29946, 29900,
+          286, 29887,   310,   306, 29914,  9415, 29897,   322,   297,   352,
+          262,   313, 29945, 29900,   286, 29887, 29914,  9415, 29897,   892,
+         1302,  6406,  1531,   287,  6599,   304, 29871, 29906, 29906,  9045,
+        29891, 26361,   322, 29871, 29941, 26361,   411,  4325,   284, 17135,
+        29892,  5643,   491, 10416,  4559,  4333, 29871, 29941, 29900, 29892,
+        29871, 29953, 29900, 29892, 29871, 29929, 29900, 29892,   322, 29871,
+        29896, 29906, 29900,  6233,  2678, 29889,  1816,   398,   474,   397,
+          861,   273,   324,   322,   297,   352,   262, 14953,   800,   892,
+        16949, 10087,   491, 11837, 29899, 21646,  1880, 29899,   546, 13390,
+        23904, 25173,   271,  5275, 29889, 10987,   886, 17845,   263, 19869,
+          313, 29878,   353, 29871, 29900, 29889, 29929, 29929, 29897,  1546,
+          402, 15860, 15899,   491,   278,   317,  9851, 29924,   322,   341,
+         9851, 29924,  1269, 21677,   474,   397,   861,   273,   324, 29889,
+         8502,  3538, 29892,   402, 15860, 15899,   491,   278,   317,  9851,
+        29924, 21677,   474,   397,   861,   273,   324,   471,  8855,   630,
+          313, 29878,   353, 29871, 29900, 29889, 29947, 29929, 29897,   411,
+          393, 15899,   491,   278,   341,  9851, 29924, 21677,   297,   352,
+          262, 29889, 17212, 18694,   393,   278,   317,  9851, 29924, 21677,
+          474,   397,   861,   273,   324,   508,   367,  7436,   304, 12678,
+          402, 15860,   297, 26361, 29892,  2012,   310,   671,   310,   385,
+          341,  9851, 29924])
+Estimation of glomerular filtration rate in dogs by a single-blood sample method involving iodixanol.
+To establish a simplified single-blood-sample method (SBSM) involving iodixanol to estimate glomerular filtration rate (GFR) in dogs and compare data provided by that procedure with data provided by a conventional multiple-blood-sample method (MBSM) involving inulin. 26 healthy dogs and 36 dogs with naturally occurring renal disease. Dogs were used in various preliminary experiments to establish protocols for the SBSM and the MBSM of GFR estimation. To evaluate the relationship between GFRs obtained by the SBSM and the MBSM each involving iodixanol, iodixanol (40 mg of I/kg) was administered IV to 26 healthy dogs and 36 dogs with renal disease; blood sample collection was performed before and at 60, 90, and 120 minutes after the injection. To evaluate the relationship between GFRs obtained by the SBSM involving iodixanol and the MBSM involving inulin, iodixanol (40 mg of I/kg) and inulin (50 mg/kg) were coadministered IV to 22 healthy dogs and 3 dogs with renal disease, followed by blood sample collection 30, 60, 90, and 120 minutes later. Serum iodixanol and inulin concentrations were separately determined by reverse-phase high-performance liquid chromatography. Findings revealed a correlation (r = 0.99) between GFR estimated by the SBSM and MBSM each involving iodixanol. Likewise, GFR estimated by the SBSM involving iodixanol was correlated (r = 0.89) with that estimated by the MBSM involving inulin. Results indicated that the SBSM involving iodixanol can be applied to estimate GFR in dogs, instead of use of an MBSM
+
+### SEQUENCE 1
+tensor([    1,   660, 29901,    13,    13,  1252, 22368,  2908,  1396,   515,
+        24179,  1400,   411,   921,  2084,    13,    13, 29902, 29915, 29885,
+         1811,   304,  6597, 24179, 11803,   313,  4906, 29906, 29897,  1550,
+         2805,  8177,   310,   278,  2908,  1396,   313,  4906, 29896,   467,
+         2266,   338,   278,  4544,   313,  2490,  2793,  9120, 29914,  3601,
+          572,  2164,  1125,    13,    13,   529,  4563,   770,   543, 29883,
+         6747, 29918,  3051, 29956,  2390,   474,   567, 20369, 10175,    13,
+          462,   418,   529,  4563,   848, 29899,  8299,   543,  3221, 29889,
+         8862, 29889,  3221, 29889,  4366,  1884,   287, 20163, 29908,   770,
+          543,  4512,  1542, 29918,  8945,   474,   567,  1542, 29918,  4018,
+         1626,   474,   567,  1323,  7114, 29908,  2944,  7728,   543,   726,
+        29908,   848, 29899, 12154,   543,  9342,  3916, 10175,    13,   462,
+         4706,   529,  1443,   848, 29899,  4512,  1396, 29899,  3051,  1990,
+          543,  1454,  6762, 29918,  7031,   293, 29908,   848, 29899,  4512,
+         1396, 29899,  3051,   333,   543, 29946, 29900, 29906, 29946, 29946,
+        29908,   848, 29899,  4512,  1396, 29899,  3051,  1853,   543,  1454,
+         6762, 29908,   848, 29899,  4512,  1396, 29899,  3051,   932,   543,
+         1454,  6762, 29908,   848, 29899,  2036,   543,  4314, 29918, 29887,
+         2271, 29908,   848, 29899,  4512,  1396, 29899,  6786,   543,  4314,
+        29918, 29887,  2271, 29908,   848, 29899,  4512,  1396, 29899,  3051,
+         9342,   333,   543, 29945, 29947, 29946, 29941, 29906, 29946, 29908,
+          770,   543,  4512,  2182,   866, 29908,   848, 29899,  4512,  1396,
+          543, 10175,    13,   462,  3986,   529,  4563,  3238,    13,   462,
+         9651,   313,  4906, 29896,  8443,    13,   462,  3986,  1533,  4563,
+         3238,    13,   462,  4706,  1533,  1443,  3238,    13, 30004,    13,
+          462,  4706,   529, 29886,  5961,  4906, 29906, 29897,   829, 29886,
+         3238,    13,   462,   418,  1533,  4563, 29958,    13,    13, 29902,
+          626,  1811,   411,   278,  1494,  1060,  2605,  2346, 29901,    13,
+          458,  4563, 17548,  1990,   543,  4512,  1542, 29918,  8945,   474,
+          567,  1542, 29918,  4018,  1626,   474,   567,  1323,  7114,  3108,
+        29914, 29886, 29961,  1333, 10394,  1990,   543,  4512,  2182,   866,
+        13531,    13,  2831,   777,  2769, 29892,  3138, 29892,   445,  2346,
+         3639,   599, 15352, 11803,  1090,   278,  1021,  1206,  3265,  1135,
+          925,   278,  1857,  2943,   448,   578, 29892,  5622,   278,  2038,
+          408,   263,  3407, 29892,   278,  4133,  2582,   723,   367, 29901,
+         2643, 29906,  2643, 29906,  2643, 29906,  2643, 29906, 29892,   322,
+          577,   373,   313,  7827,   405,   310,  7191,   467,    13,  3624,
+          727,   263,   982,   306,   508,   679,   697,  2643,   472,   263,
+          931, 29973,  3374,   366, 29991,    13,    13, 29909, 29901,    13,
+           13,  3624,   727,   263,   982,   306,   508,   679,   697,  2643,
+          472,   263,   931, 29973,   259,    13,    13,  8241, 15718,   671,
+        29901,   259,    13, 29898,   458,  4563, 17548,  1990,   543,  4512,
+         1542, 29918,  8945,   474,   567,  1542, 29918,  4018,  1626,   474,
+          567,  1323,  7114,  3108, 29914, 29886, 29961,  1333, 10394,  1990,
+          543,  4512,  2182,   866,  1159,  2314, 29961, 29896, 29962, 29871,
+           13,    13,  1454,   278,   937,   697, 29889,  1126,   518, 29876,
+        29962,   411,   302, 29922, 29896,   636, 29916,   363,   278,  4045,
+        29889, 29871,    13])
+Q:
+
+Excluding blockquote from forum post with xpath
+
+I'm trying to extract forum posts (message2) while getting rid of the blockquote (message1). Here is the HTML (post content modified/simplified):
+
+ <div class="cPost_contentWrap ipsPad">
+                      <div data-controller="core.front.core.lightboxedImages" class="ipsType_normal ipsType_richText ipsContained" itemprop="text" data-role="commentContent">
+                        <blockquote data-ipsquote-contentclass="forums_Topic" data-ipsquote-contentid="40244" data-ipsquote-contenttype="forums" data-ipsquote-contentapp="forums" data-cite="aries_gurl" data-ipsquote-username="aries_gurl" data-ipsquote-contentcommentid="584324" class="ipsQuote" data-ipsquote="">
+                          <div>
+                            (message1)
+                          </div>
+                        </blockquote>
+
+                        <p>(message2)</p>
+                      </div>
+
+I am trying with the following XPath query:
+//div[@class="ipsType_normal ipsType_richText ipsContained"]/p[not(@class="ipsQuote")]
+For some reason, however, this query returns all subsequent posts under the same case rather than just the current node -so, taking the above as a reference, the returned results would be: message2 message2 message2 message2, and so on (total N of messages).
+Is there a way I can get one message at a time? Thank you!
+
+A:
+
+Is there a way I can get one message at a time?  
+
+Yes ;) use:  
+(//div[@class="ipsType_normal ipsType_richText ipsContained"]/p[not(@class="ipsQuote")])[1] 
+
+for the first one. And [n] with n=1..x for the others. 
+
+
+### SEQUENCE 2
+tensor([    1,   660, 29901,    13,    13, 29928,  5364, 16759, 29901, 13189,
+         1404,   338,   451,  4502,   304,   278,  7797,  7608,  1059,   448,
+         8989,   338,  3734,    13,    13, 29902, 29915, 29885,   451,  1854,
+          825,   306, 29915, 29885,  2599,  2743, 29892,   541,   278, 15585,
+          630,  1404,   338,   451, 15443,   297,   278,  7797,  7608, 29889,
+        29871,    13, 23785, 29889,  2272,    13,  1990,  4918, 29898,  9794,
+        29889,  3195,  1125,    13,  1678,  8059, 29918,  1609,   353,  4733,
+        29889, 27755,  2558,   877,  5150, 29889,  2659,   742,   373, 29918,
+         8143, 29922,  9794, 29889, 29907,  3289,  5454,  2287, 29897,    13,
+           13,  1678,   822,  4078, 29898,  1311, 29892,   334,  5085, 29892,
+         3579, 19290,  1125,    13,  4706,  2428, 29898,  6747, 29892,  1583,
+          467,  7620, 10456,  5085, 29892,  3579, 19290, 29897,    13,    13,
+         9125, 19427, 29889,  2272,    13,  1990,  4918, 17679, 29898, 15550,
+        19427, 29889,  3195, 17679,  1125,    13,    13,  1678,   770, 20553,
+        29901,    13,  4706,  1904,   353,  4918,    13,  4706,  4235,   353,
+          525,  1649,   497,  1649, 29915,    13,    13,  1678,   822,  1653,
+        29898,  1311, 29892,  2854,   630, 29918,  1272,  1125,    13,  4706,
+         1400,   353,  4918, 29889, 12650, 29889,  3258, 29898,  1068,  3084,
+          630, 29918,  1272, 29897,    13,  4706,   396,  4805,   775,   304,
+          788,  4558,    13,    13,  7406, 29889,  2272,    13,  1990,  4918,
+         1043,  2697, 29898,  1493,  7224, 29889,  3195,  1043,  2697,  1125,
+           13,    13,  1678,  7797,  3950, 29918,  1990,   353,  4918, 17679,
+           13,    13,  1678, 10751, 29918, 13203,   353,   313,    13,  4706,
+        11239, 29889,  3624,  6444,  4173,   630,  2816,  6359, 11730, 29892,
+           13,  4706,  1317, 28213,  2816,  6359, 11730, 29892,  1723,    13,
+           13,  1678,   822,  2189, 29918,  3258, 29898,  1311, 29892,  7797,
+         3950,  1125,    13,  4706,  7797,  3950, 29889,  7620, 29898,  2490,
+          287, 29918,  1609, 29922,  1311, 29889,  3827, 29889,  1792, 29897,
+           13,    13, 29902,  1016, 29915, 29873,  2274,  2020,  7797,  3950,
+        29889,  7620, 29898,  2490,   287, 29918,  1609, 29922,  1311, 29889,
+         3827, 29889,  1792, 29897,  1838, 29915, 29873,   664,   408,  9146,
+        29889,   739,   881,  1209,   278,  3734,  2472,  1048,   278,  1746,
+        29889,    13, 10401,   306,   437,   263, 11971,  2009, 29892,   306,
+          679,   278,  1059,   393, 29871,    13, 29912,    13,  1678,   376,
+         2490,   287, 29918,  1609,  1115,   518,    13,  4706,   376,  4013,
+         1746,   338,  3734,  1213,    13,  1678,  4514,    13, 29913,    13,
+           13, 29902,  1348,   372, 29915, 29879,  1554,   304,   437,   411,
+          278,  1653,  1158,   297,   278,  7797,  7608, 29889,  1152,   777,
+         2769, 29892,  8059, 29918,  1609,   338,   451,  2198,   297,  2854,
+          630, 29918,  1272,   313,   272,  1554,  2788,   467,   306,   723,
+          763,   304,  1073,   825,  3721,   338, 10464,  5742,   278, 20407,
+        29889,    13,    13, 29909, 29901,    13,    13,  5143,  6084,  8059,
+        29918,  1609,   408,  1303,   871,  1746, 29889,    13,  1990,  4918,
+        17679, 29898, 15550, 19427, 29889,  3195, 17679,  1125,    13,    13,
+         1678,   770, 20553, 29901,    13,  4706,  1904,   353,  4918,    13,
+         4706,  4235,   353,   525,  1649,   497,  1649, 29915,    13,  4706,
+         1303, 29918,  6194, 29918,  9621,   353,  6702,  2490,   287, 29918,
+         1609,   742,  1723])
+Q:
+
+Django REST: Auth user is not passed to the serialiser error - Field is required
+
+I'm not sure what I'm doing wrong, but the authenticated user is not registered in the serialiser. 
+Models.py
+class Post(models.Model):
+    posted_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
+
+Serializers.py
+class PostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+    def create(self, validated_data):
+        post = Post.objects.create(**validated_data)
+        # extra code to add images
+
+views.py
+class PostViewSet(viewsets.ModelViewSet):
+
+    serializer_class = PostSerializer
+
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly, )
+
+    def perform_create(self, serializer):
+        serializer.save(posted_by=self.request.user)
+
+I don't understand why serializer.save(posted_by=self.request.user) doesn't work as intended. It should pass the required information about the field.
+When I do a POST request, I get the error that 
+{
+    "posted_by": [
+        "This field is required."
+    ]
+}
+
+I think it's something to do with the create method in the serialiser. For some reason, posted_by is not present in validated_data (or something similar). I would like to know what exactly is happening behind the scenes.
+
+A:
+
+just specify posted_by as read only field.
+class PostSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+        read_only_fields = ('posted_by', )
+
+### SEQUENCE 3
+tensor([    1, 24790,   951,   650, 29915, 29879, 11289, 29899,  4569,  1693,
+          756,  1925,  3654,   297, 20089, 20578,  1494,   278,  4892,   515,
+          382,  2095, 29874,   310,   697,   310,   670,  6993,  1410,  3163,
+        29889,    13,    13, 29963,   625, 29899, 13504,  1693, 15316,  3685,
+        29899, 11139,  1648,   338,   731,   304,  4953, 16684,  6673,  2678,
+        16340,   746,  7178, 23993,   350,  1794, 12555,  4125, 11308, 24790,
+          951,   650,   304, 14333,   263,  7824,  7761, 21362,   373,   382,
+         2095, 29874,   297,  9923,  1974, 29889,  3685, 29899, 11139,  1648,
+          674,  8677,   714,   670, 22204,   408,  6673,   515,   670,  3271,
+        29889,    13,    13,  3868,   338,   278,  9939, 24034, 11715,  6221,
+          304,   367,   297, 20089, 20578,   297,   445,   382,  2095, 29874,
+          714,  8690, 29892,   607,   338,  5172, 28702,   263,  4892,   304,
+          645,   310, 29871, 29896, 29900, 29892, 29900, 29900, 29900, 29889,
+           13,    13, 29359, 18172,  2400, 18811,   275,   882,    13,    13,
+        22966, 29899, 11139,  1648, 27081,  6275,  8459,   304, 20089, 20578,
+         3654,   363, 29871, 29906, 29896,  3841,  1494,   278,  4892,   515,
+          382,  2095, 29874,  1833,   323,  1041,  3250,   310,   697,   310,
+          670,  6993, 24127, 29892,  5034,   304,   278, 24790,   951,   650,
+        25484,   292, 15025, 29889,    13,    13, 22966, 29899, 11139,  1648,
+         2000,   373,   599,  1906,  1058,   505,  1063,   297,  6958,   411,
+          278,  7123,   767,   304,   884,  1925,  6053,   297, 20089, 20578,
+        29892,  1497,   278,  3461, 29889,    13,    13, 29908,  1576, 21400,
+        29899, 13504,  1693,  3523,   287,   304, 20089, 20578,  3654,  1363,
+          540, 10753,   304,  3275,   491,  1342,  1699, 24790,   951,   650,
+        29915, 29879, 26721, 29891,  7668,   310, 10343,   322, 22365,   800,
+          450, 29877, 13488,  5429,   278,  6853,   630,  5254, 29889,    13,
+           13, 22966, 29899, 11139,  1648, 29915, 29879,  8541,  2454, 20089,
+        20578,  5304,   408, 24790,   951,   650,   338, 10623,  3277,   263,
+        14451,   297,   716,   382,  2095, 29874,  4251,   607,  9508,   287,
+         7178, 23993,   350,  1794, 12555,  4125,   304,   337,  2611,   403,
+        25091,   373, 24211, 29889,    13,    13, 29903, 11617,   951,   650,
+        10478, 29871, 29896, 29947,   716,  4251,   310,   382,  2095, 29874,
+          297,   278,  4723, 17140, 24211, 29892,   701,   515, 29871, 29896,
+        29953,   716,  4251,  1833,  4723, 29889,   910, 16706,   278,   534,
+          355,   310,  4845,  2827,  4251,   297, 24790,   951,   650, 29889,
+         9267,   310,   278,   716, 24554,   310,  4251,   526,  4475,   304,
+          278,  7483, 29915, 29879,  9427,   292, 13661, 29889,    13,    13,
+         1576, 15366,   337, 29899,   326,  4752,  3160,   263,  4646,  2230,
+         9892,   373,   599, 25462,  6826,   292,   515, 19055,   322,   515,
+        12128, 24413,  1283, 29899, 13234, 22535,   297, 15782,  9999, 10161,
+        29889, 21590, 24479,   674,  2373,  1467,   278, 19055,   322,   377,
+          279,  1960, 29889,    13,    13,   797,  6124,   727,   674,   367,
+        25091,   373,  6013,  2722,   322,  9045,  1423,  9748,   491,   278,
+        10974,   674,   367,  9324,  6419, 29889,  5236,  8608,   362,   674,
+          367,   337,  2611,   630,   607,  4046,   278,  3694,   310, 28134,
+          297,  8818,   275,   304,  1023,   297, 18647,   322,  3023,   472,
+          278,  1250,   310,  2919,  8818, 29875,   325,   550,   304, 10032,
+         9128,  6958,  1546])
+Sierra Leone's vice-president has put himself in quarantine following the death from Ebola of one of his security guards.
+
+Vice-President Samuel Sam-Sumana is set to become acting president later Sunday when President Ernest Bai Koroma leaves Sierra Leone to attend a European Union conference on Ebola in Belgium. Sam-Sumana will carry out his duties as president from his home.
+
+He is the highest ranking African official to be in quarantine in this Ebola outbreak, which is fast approaching a death toll of 10,000.
+
+Story continues below advertisement
+
+Sam-Sumana voluntarily decided to quarantine himself for 21 days following the death from Ebola last Tuesday of one of his security personnel, according to the Sierra Leone Broadcasting Corporation.
+
+Sam-Sumana called on all those who have been in contact with the dead man to also put themselves in quarantine, said the report.
+
+"The Vice-President opted to quarantine himself because he wants to lead by example," Sierra Leone's Deputy Minister of Information and Communications Theo Nicol told the Associated Press.
+
+Sam-Sumana's dramatic quarantine comes as Sierra Leone is experiencing a rise in new Ebola cases which prompted President Ernest Bai Koroma to reinstate restrictions on Saturday.
+
+Sierra Leone recorded 18 new cases of Ebola in the week ending Saturday, up from 16 new cases last week. This breaks the trend of declining cases in Sierra Leone. Many of the new clusters of cases are related to the capital's fishing industry.
+
+The measures re-imposed include a nighttime ban on all boats launching from shore and from commercial vehicles off-loading goods in western market areas. Naval vessels will patrol the shore and wharves.
+
+In addition there will be restrictions on ferries and health checkpoints by the police will be strengthened. Public transportation will be reinstated which limit the numbers of passengers in taxis to two in cars and four at the back of large taxi vans to reduce physical contact between
+
+### SEQUENCE 4
+tensor([    1,   382,  2608,   630,   724,   398, 11174,   310,   899,   431,
+          280,  7307, 29946, 29946, 17305, 29871, 29953,   526,  8855,   630,
+          411, 20511, 10503,  2561,   297,   946,  3663,   573,  1661, 29899,
+        29950,   397, 29887,  9089, 29915, 29879,   301,   962,   561,  4125,
+        29889,    13, 29909, 17305,   883,   310,  7307, 29946, 29946,   393,
+          756,  5684,   626,  1789,  1274,  4841,   297,   278,  3619, 26823,
+         1250, 15933,   313,  6530, 29946, 29946, 29899, 29894, 29953, 29897,
+         2444,   304,  1708,   263,  6297,   297,   278,  1539,   579, 25101,
+          310,   286,  2520,   273,  2478, 29889,  1334, 17005,   899,   431,
+          280,  7307, 29946, 29946, 29899, 29894, 29953,   313, 29879,  6530,
+        29946, 29946, 29899, 29894, 29953, 29897,   491, 14845,  3235, 29909,
+          297, 29871, 29906, 29900, 29896, 22069,   411,   286,  2520,   424,
+          301,   962,   561,  4125, 29889,   450,   269,  6530, 29946, 29946,
+        29899, 29894, 29953,  3233,   471, 16951, 11858,   630,   297, 22069,
+          411,  1661, 29899, 29950,   397, 29887,  9089, 29915, 29879,   301,
+          962,   561,  4125,   313, 29940, 15444, 29897,   313, 29876,   353,
+        29871, 29896, 29947, 29946,   467,   450,   269,  6530, 29946, 29946,
+        29899, 29894, 29953,  3233,   471,  8855,   630, 16951,   411,   278,
+         3918,   269,  6530, 29946, 29946,   322,   899,   431,   280,  1006,
+          280,  2679,   262, 29899, 29906,   337, 14268, 11174, 29892,   541,
+          871,  8062,   368,   411,   724,   398,   425,   312,   403,   316,
+        29882, 11279,  1885,   559,   313, 10249, 29950,   467,   512, 29871,
+        29896, 29946, 29929, 22069,   411,   946,  3663,   573,   405, 15444,
+        29892,   278,   269,  6530, 29946, 29946, 29899, 29894, 29953,  3233,
+          471, 11858,   630,   297,   278,  1014, 13155,   411,   263,  1880,
+          365, 29928, 29950,  3233, 29892,  7408,  4786, 29914,  5667, 17135,
+        29892,   323, 29899,  3729,   301,   962,   561,  4125, 29892,   322,
+         1880, 29899,  1639, 13847,   470,  1880, 12045,  2318,   408, 15659,
+          491,   278,  4623,  1019,  5138,   520,   293, 11374,   313, 29902,
+         2227,   467,  1932,   278,   269,  6530, 29946, 29946, 29899, 29894,
+        29953,  3233,   471,  1405,   470,   353, 29871, 29947, 29900, 29900,
+         8736, 29914,   828,   278, 12463, 10503,  2561,  6554,   471, 16951,
+         9263,  1463,   313, 29886,   353, 29871, 29900, 29889, 29900, 29900,
+        29900, 29896,   467,   512,   278,  4482,   718,  4482, 29899,  1639,
+        13847, 12045,  2318,   313, 29902,  2227, 29897,  1716, 12463, 10503,
+         2561, 19257,   313,  1188, 29899, 10003,   282,   353, 29871, 29900,
+        29889, 29900, 29900, 29900, 29945, 29892,  4624,  1111, 29916,   265,
+          282,   353, 29900, 29889, 29900, 29900, 29906, 29897,   892, 16951,
+         9263,  1463,   746,   278,   269,  6530, 29946, 29946, 29899, 29894,
+        29953,  3233,   471,  1405,   470,   353, 29871, 29947, 29900, 29900,
+         8736, 29914,   828, 29889,   512,  1773, 27432,   403,  7418, 29892,
+          269,  6530, 29946, 29946, 29899, 29894, 29953,   471,  4318,   304,
+          367,  7417,   310,   278,  5320,   410,  5138,   520,   293, 13879,
+          297,   278,   306,  2227,   313,   482, 29892,  4180,  4660, 29892,
+         1353,   310, 17541,   273,   397,   284, 11840, 29892,  8081,   826,
+         4089,  7408,   322,   365, 29928, 29950,  3233,   511,   577,   372,
+         1122,   367,  5407,   363,  8500,   292,   278, 21957,   310,   946,
+         3663,   573,   405])
+Elevated serum levels of soluble CD44 variant 6 are correlated with shorter survival in aggressive non-Hodgkin's lymphoma.
+A variant form of CD44 that has additional amino acids in the common protein backbone (CD44-v6) seems to play a role in the metastasis of malignancies. We measured soluble CD44-v6 (sCD44-v6) by ELISA in 201 patients with malignant lymphoma. The sCD44-v6 level was significantly elevated in patients with non-Hodgkin's lymphoma (NHL) (n = 184). The sCD44-v6 level was correlated significantly with the standard sCD44 and soluble interleukin-2 receptor levels, but only weakly with serum lactate dehydrogenase (LDH). In 149 patients with aggressive NHL, the sCD44-v6 level was elevated in the subgroups with a high LDH level, stage III/IV disease, T-cell lymphoma, and high-intermediate or high risk group as identified by the International Prognostic Index (IPI). When the sCD44-v6 level was > or = 800 ng/ml the overall survival rate was significantly decreased (p = 0.0001). In the low + low-intermediate risk group (IPI) both overall survival rates (log-rank p = 0.0005, Wilcoxon p =0.002) were significantly decreased when the sCD44-v6 level was > or = 800 ng/ml. In multivariate analysis, sCD44-v6 was shown to be independent of the five prognostic factors in the IPI (age, performance status, number of extranodal sites, Ann Arbor stage and LDH level), so it may be useful for predicting the outcome of aggressive N
+
+### SEQUENCE 5
+tensor([    1,   450,  8939,   342,  6392,  3158,   297,  3122, 19180, 29915,
+        29879,  1952,   858,   776,  4038,  5304,   304,   263,  7123,  5040,
+          373,   278,  7062,  2625,   310,  7510,  2598,   983, 12476,  2608,
+          538,   322,  9755,   310,  3087, 13423,  2016, 29892,   541,  1286,
+          372,  1122,  7146,  2833,   777,  2834,   411,   263, 12176,   716,
+        12849, 29899,  1509,  4280, 29889, 23803, 29892,   607,  1914, 29879,
+          263,  3593,  1401,   327, 13267, 15879,   310,   393, 17686, 29892,
+          756,  8794,   385, 17327,   411, 14328, 12037,  7817, 12271,  5322,
+          315, 14899,   304,  1653,   263,  5835,  3814,   363,   393,  2913,
+          489,  1552,  2060,   723,  4612,   278, 29871, 29947, 29889, 29946,
+          263,  1037,  3287,  2298, 29871, 29906, 29889, 29945, 23931,   310,
+          278, 20114,  3122, 19180, 17375,  2593, 29915, 29879, 12039,  3287,
+        29892,  1334, 23294,  1924, 13676, 29889,   739,  1033, 19998,  1925,
+        23803, 29915, 29879,  3593,   267,   297,   385,  1090,  2057,  7171,
+          482,   322,  3386,   376, 29946, 29900, 29900, 29892, 29900, 29900,
+        29900,  6862,  6900,   310, 12128,  8034,  2913,   297,  1023,  1880,
+        29899, 29878,   895,   304, 17538, 29892, 29871, 29953, 29900, 29900,
+        29892, 29900, 29900, 29900,  6862,  6900,   310, 20201,   616, 29914,
+         8711,   295,  2913, 29892, 29871, 29896, 29906, 29900, 29892, 29900,
+        29900, 29900,  6862,  6900,   310,  3240,   737,   528,  3554, 29892,
+          263, 29871, 29906, 29892, 29945, 29900, 29900, 29899,   344,   271,
+        14064,   278,  1008,  4280,   322,   385, 29871, 29947, 29900, 29900,
+        29899,   344,   271,  1722,   626,   561,   277,   354,  1008, 29892,
+         2298,   263, 29871, 29945, 29900, 29892, 29900, 29900, 29900, 29899,
+        17619, 29899,  6661,   528,   261,  2593, 29915, 29879,  5073, 29908,
+         2038,   372, 29889,  9865, 29876, 29889,    13,    13, 29907, 14899,
+          756,  1472,   321, 28133,   278,  6019,  2913,   472,  7510,  2598,
+          983,   322,  3087, 13423,  2016, 29892,   607,  1395,  1691,   278,
+         2625, 20919,   411,   263,  1472, 29892,  2099, 10090, 29889, 27466,
+         2705, 29892,   540, 18397,   385,   443,  2929,   293,  1573, 24963,
+          363,   278,  2982,  1250,   297, 29871, 29906, 29900, 29896, 29896,
+          322, 23803,   298,  2859,   670,  5001, 29892,   315, 14899, 25522,
+        29892,  1728,  6721,   363,   916, 16688,   313,   392,  1334, 29950,
+        29877,   750,   967, 10977,   373,   278,  3593,  3287, 29892,  2086,
+        29892, 17231,   304,  1653,   901,   727,  1135,   610,  9292,   363,
+         4158,  1301,   277,   467,    13,    13, 29907, 14899,   338,  1985,
+          411, 11258,  9226,  5430,   264,  6853,  1078,   373,   278,  5835,
+         3814, 29936,  5430,   264,  3796,   373,   278,   349, 12696,   411,
+        12390,   279,   349,  5481, 29889,    13,    13,  3644,  4240, 29892,
+          278,  2060,   723,   748,   701,   297, 22950, 29892,   411,   278,
+         1090,  2057,  3593,  3287,  4240,   937, 29889,   450,  1014,   357,
+        10800,   273,  1401,   327,   674,   505,   304,   367,  1751,  1288,
+         2645,  7632,   322,   565, 23803,  5528,  1295, 21544,  1363,   310,
+          278,   664, 29892,   315, 14899,   674,   367, 14040,   363, 21653,
+          963, 29889,    13,    13, 30064,   315, 14899, 25522, 29892,   341,
+         6040,   830,   496,  1222,  7009,   573,  4059,   276,   882,  1152,
+         1019,  4752,   341,  2442, 26596,   472,  1334, 29950, 29877, 10034,
+          327,   518, 23902])
+The pedestrian action in West Hollywood's Boystown area comes to a dead stop on the south side of Santa Monica Boulevard and east of San Vicente, but now it may finally seem some life with a huge new mixed-use complex. Metro, which owns a bus depot southeast of that intersection, has signed an agreement with Pacific Design Center owner Charles Cohen to create a master plan for that space--the project would cover the 8.4 acre lot plus 2.5 acres of the adjacent West Hollywood Sheriff's Station lot, Wehoville reports. It could potentially put Metro's buses in an underground garage and construct "400,000 square feet of commercial office space in two high-rise towers, 600,000 square feet of residential/hotel space, 120,000 square feet of retail shops, a 2,500-seat movie theater complex and an 800-seat open amphitheater, plus a 50,000-square-foot sheriff's station" above it. Damn.
+
+Cohen has long eyed the prime space at Santa Monica and San Vicente, which greets the sidewalk with a long, mean wall. Apparently, he submitted an unsolicited proposal for the land back in 2011 and Metro hired his company, Cohen Brothers, without asking for other offers (and WeHo had its eye on the bus lot, too, hoping to create more there than parking for mass transit).
+
+Cohen is working with architecture firm Gruen Associates on the master plan; Gruen worked on the PDC with Cesar Pelli.
+
+If built, the project would go up in stages, with the underground bus lot built first. The subterranean depot will have to be operational during construction and if Metro incurs costs because of the work, Cohen will be responsible for covering them.
+
+· Cohen Brothers, MTA Reach Exclusive Agreement For Proposed Mega Complex at WeHo Depot [Cur
+
+### SEQUENCE 6
+tensor([    1, 14650,   310,   330,   265,   328, 28467,   267,   297,   278,
+          521, 21475,  7232,   719,  8927,   282,  1981,   277,   653,   330,
+         1049, 29889,    13,  2499,  3592,   263,  1353,   310,  5198,   348,
+         1148,   391,  2878,   331,   936, 11898,   505,  1063,  8988,   714,
+          373,   278,  1422, 11685,   310,   521, 21475,   330,   265,   328,
+        28467,   267,  2645,  7232,   719,  6352,  6656, 29892,   278, 25406,
+          322, 18652,  4426,   310, 10097,   310,   330,   265,   328, 28467,
+          267,   526,   451,  2821, 29889,   512,   445,  6559, 29892,   591,
+        12399,   278, 10097,   322, 18131,  5996, 21862,   310,   330,   265,
+          328, 28467,   267,   297,   278,  7232,   719,  8927,   322, 16157,
+          521, 21475, 14123,   282,  1981,   277,   653,   330,  5252,   773,
+          390, 29911, 29899,  9026, 29934, 29892,   297,  2990,  7498, 19515,
+         2133,   322,  5198,   348,  1148,   391,  2878,   331,  6020, 29889,
+         1152,   445,  6437, 29892,   591, 10425,  2702,  3677,   275,  1572,
+         2750,   521, 21475,   900,   506,   280, 29899,   303,   326, 18099,
+          298,   555,   650, 21762, 29899,  1491,  5441,   313, 29883, 29943,
+         7068,  3571, 29897,   322,   521, 21475,   301,  1082,   262,  5281,
+          298,   555,   650, 21762, 29899,  1491,  5441,   313, 29883, 29931,
+        29950,  3571, 29897,  2729,   373,  1269,  1925,  1230,   626,  1789,
+        22193,  5665, 29889,   390, 29911, 29899,  9026, 29934,  7418, 17845,
+          393,   274, 29943,  7068,  3571,   286, 29934,  3521,   471, 13384,
+          515,  7232,   719,  8927,  2462, 29871, 29955,   313, 29923, 29955,
+          467,   678, 21475,   383,  7068,  3571,   286, 29934,  3521, 29899,
+        17073,   292,  8521,   735, 29897,   322,   448,  6727,   348,   459,
+          359,  3321,  8521,   666, 29897,  9101,  4687,   304,  2615,   297,
+          278,  9712,  1705,   760,   310,   278,  5777,   566,   284,   658,
+          915,   297,   278, 14123,   282,  1981,   277,   653,   330,  1049,
+          472,   382, 29947, 29889,   678, 21475,   365, 29950,  3571, 29899,
+          666,  9101,   892,   884,   937,  8900,   727,   472,   382, 29947,
+        29892,   541,   274, 29931, 29950,   286, 29934,  3521,  4603,   471,
+        16725,   515,   382, 29946,   491,   390, 29911, 29899,  9026, 29934,
+         7418, 29889,   450,  4978,   310,  1438,   521, 21475,   330,   265,
+          328, 28467,   262, 29899,   735,   322,   448,   666,  9101,  9677,
+          515,   278,  9712,  1705,   760,   304,   270,   943,   284,   760,
+          297,   278,  5777,   566,   284,   658,   915,  2820,   382, 29896,
+        29900,   322, 17602, 17832,   304,   278,  2257, 17206,   293,   658,
+          915,   515,   382, 29896, 29906,   304,   382, 29906, 29900, 29889,
+         4525,  9101,   892, 18131,  1189,  1711,   770,  2164,   964,  1023,
+         4072,   313, 14486, 29899,   322,  4402, 29899,   845, 10501,  9101,
+          467,   739,   471,  1476,   393,   278,  9027,   310,   330,   265,
+          328, 28467,   262, 29899,   666,  9101,   297,   278,  5777,   566,
+          284,   658,   915,   471,  2337,  6133,  1135,   393,   297,   278,
+         2257, 17206,   293,   658,   915, 10106,   278,  3785,   310,  5849,
+        29889,  1763,   278,  1900,   310,  1749,  7134, 29892,   445,   338,
+          278,   937,  3461, 12789,  4746,   373,   278,  1422, 11685,   310,
+          521, 21475,   330,   265,   328, 28467,   267,   491, 24809,   358,
+          310,  1716, 26823,   322,   286, 29934,  3521,   310,   521, 21475,
+          330,   265,   328])
+Development of gonadotropes in the chicken embryonic pituitary gland.
+Although a number of immunohistochemical studies have been carried out on the differentiation of chicken gonadotropes during embryogenesis, the temporal and spatial properties of appearance of gonadotropes are not clear. In this study, we studied the appearance and morphological characteristics of gonadotropes in the embryonic and adult chicken anterior pituitary glands using RT-PCR, in situ hybridization and immunohistochemistry. For this purpose, we raised specific antisera against chicken follicle-stimulating hormone beta-subunit (cFSHbeta) and chicken luteinizing hormone beta-subunit (cLHbeta) based on each putative amino acid sequence. RT-PCR analysis revealed that cFSHbeta mRNA was expressed from embryonic day 7 (E7). Chicken FSHbeta mRNA-expressing (-ex) and -immunopositive (-ip) cells started to appear in the ventral part of the caudal lobe in the anterior pituitary gland at E8. Chicken LHbeta-ip cells were also first observed there at E8, but cLH mRNA expression was confirmed from E4 by RT-PCR analysis. The distribution of these chicken gonadotropin-ex and -ip cells spread from the ventral part to dorsal part in the caudal lobe around E10 and subsequently expanded to the cephalic lobe from E12 to E20. These cells were morphologically classified into two types (round- and club-shaped cells). It was found that the density of gonadotropin-ip cells in the caudal lobe was always higher than that in the cephalic lobe throughout the period of development. To the best of our knowledge, this is the first report focusing on the differentiation of chicken gonadotropes by assessment of both protein and mRNA of chicken gonad
+
+### SEQUENCE 7
+tensor([    1, 29871, 29906, 29900, 29896, 29929, 26550,  7946,  4786,  7567,
+        29915, 29879, 21850, 29427,    13,    13,  1576, 29871, 29906, 29900,
+        29896, 29929, 26550,  7946,  4786,  7567, 29915, 29879, 21850, 29427,
+          471,   263,  2323, 29899,   295,   326,  3381, 14743,   304,  8161,
+          278,  4797,  8064,   310,  1757, 29915, 29879, 26550,  7946,  4786,
+        12755, 20305,   297,   278,  3303,  3900, 29889,  5169, 19021,  1354,
+        29312, 29899, 17823, 10907, 29892,   372,  4689,   373,  4779, 29871,
+        29896, 29892, 29871, 29906, 29900, 29896, 29929, 29892,  1494,   278,
+        29871, 29906, 29900, 29896, 29947, 29994, 29896, 29929,  4259, 29892,
+          322, 22834,   411,   278, 22401,  3748,   373,  4779, 29871, 29896,
+        29953, 29892, 29871, 29906, 29900, 29896, 29929, 29889,    13,    13,
+         1576,  4797, 27632,   979,   322, 22401,   364,  3885,   471,  4934,
+          363,   278,   937,   931,   472,   278, 16092,  5127,  3362, 19722,
+         1530,   895,   398,   297,  7236, 25843, 29892, 21817, 29889,   450,
+        14743,   471,  2113,   491,   278,   501, 29956, 29994, 29949,   845,
+        29895, 10578, 11810,   550, 29889,    13,    13, 24399,  9215, 10907,
+           13,    13, 28451,  2454,   289,  4841,   313, 29946, 29941, 29897,
+           13,  1576,  1494, 29871, 29946, 29941, 10907,   892, 18428,  4021,
+        14903,   363,   278, 29871, 29906, 29900, 29896, 29947, 26550,  1746,
+          491, 27935,   310, 15613,  1009, 21362, 29915, 29879, 18428, 21000,
+        29889,    13,    13,  4178, 29899, 16961,   289,  4841,   313, 29906,
+        29896, 29897,    13,    13,  1576,  1494, 29871, 29906, 29896, 10907,
+          892, 15074,  4021,  2450,   363,   278, 29871, 29906, 29900, 29896,
+        29947, 26550,  1746,   491,   278, 26550,  7946,  4786,  7567, 29915,
+        29879, 21850, 12930, 29889,   450, 21118, 19030, 10907,   373,   278,
+         8405,   310,  1009,  5401, 29899,  6758, 19649, 29892,  9324,   310,
+        20410, 29892,  2343, 29899,   517, 29899,  2813,  2582, 29892,  2582,
+         2750,  3619, 23995,  1237, 29892,   322,  2582,  2750, 10907,  5134,
+          297,   278, 26550, 29915, 29879,  2186, 14014,  7115,   886, 29889,
+           13,    13, 29911,  2905,  1166,  4105,  3522,    13,    13,  7031,
+        29899,  1563,    13,    13, 15342, 29899,  1563,    13,    13,  7031,
+        29899,  1266,    13,    13, 15342, 29899,  1266,    13,    13, 15790,
+        12458,    13,    13, 13393,   884,    13, 29871, 29906, 29900, 29896,
+        29929, 26550,  7946,   306,  7567, 29915, 29879, 21850, 29427,    13,
+        29871, 29906, 29900, 29896, 29929, 26550,  7946,  1944,  7567, 29915,
+        29879, 21850, 29427,    13, 29871, 29906, 29900, 29896, 29929, 26550,
+         7946,   306, 10152, 29915, 29879, 21850, 29427,    13, 29871, 29906,
+        29900, 29896, 29929,  3086, 15518,  7018, 29427,    13, 29871, 29906,
+        29900, 29896, 29929, 10152, 29915, 29879,  3086, 15518,  7018, 29427,
+           13, 29871, 29906, 29900, 29896, 29929,  8598, 10764,  7946,   306,
+         7567, 29915, 29879, 21850, 29427,    13, 29871, 29906, 29900, 29896,
+        29929,  8598, 10764,  7946,  1944,  7567, 29915, 29879, 21850, 29427,
+           13, 29871, 29906, 29900, 29896, 29929,  8598, 10764,  7946,   306,
+        10152, 29915, 29879, 21850, 29427,    13,    13,  1123, 10662,    13,
+           13, 10900, 29901, 29940, 22701,  7946,  4786,  7567, 29915, 29879,
+        21850, 29427,    13, 29940,  1113, 29874, 29427,    13, 29940, 22701,
+         7946,  4786,  7567, 29915, 29879, 21850,    13, 10900, 29901, 29903,
+         4011,   297,  7236])
+2019 NCAA Division III Men's Basketball Tournament
+
+The 2019 NCAA Division III Men's Basketball Tournament was a single-elimination tournament to determine the national champion of men's NCAA Division III college basketball in the United States. Featuring sixty-four teams, it began on March 1, 2019, following the 2018–19 season, and concluded with the championship game on March 16, 2019.
+
+The national semifinal and championship rounds was held for the first time at the Allen County War Memorial Coliseum in Fort Wayne, Indiana. The tournament was won by the UW–Oshkosh Titans.
+
+Qualifying teams
+
+Automatic bids (43)
+The following 43 teams were automatic qualifiers for the 2018 NCAA field by virtue of winning their conference's automatic bid.
+
+At-large bids (21)
+
+The following 21 teams were awarded qualification for the 2018 NCAA field by the NCAA Division III Men's Basketball Committee. The committee evaluated teams on the basis of their win-loss percentage, strength of schedule, head-to-head results, results against common opponents, and results against teams included in the NCAA's final regional rankings.
+
+Tournament bracket
+
+Top-left
+
+Bottom-left
+
+Top-right
+
+Bottom-right
+
+Final Four
+
+See also
+ 2019 NCAA Division I Men's Basketball Tournament
+ 2019 NCAA Division II Men's Basketball Tournament
+ 2019 NCAA Division I Women's Basketball Tournament
+ 2019 National Invitation Tournament
+ 2019 Women's National Invitation Tournament
+ 2019 NAIA Division I Men's Basketball Tournament
+ 2019 NAIA Division II Men's Basketball Tournament
+ 2019 NAIA Division I Women's Basketball Tournament
+
+References
+
+Category:NCAA Division III Men's Basketball Tournament
+Ncaa Tournament
+NCAA Division III Men's Basketball
+Category:Sports in Fort
+
+### SEQUENCE 8
+tensor([    1, 10802,  1994,  1072, 18099,   278, 28744,   310, 21767,   307,
+         1885,   297,  8024,   287,   322,   443,   572,  9714,  1014,  7610,
+         2161,  4972, 13319,  7990,  5252, 29889,    13, 15771, 29899, 19190,
+        13319,  7990,  5252,   313, 29907, 29956, 29879, 29897,   526,  2931,
+         1891,   491,   263,  4482,  7037,   363,   405, 28744, 29889,  7634,
+        11235,   278,  2224,  1994,  1072, 18099,   405,  5094, 19914,   408,
+         1532,   408,  1009, 26307,   373, 29380,  3651,  1795, 11157,   278,
+         7037,   310,   315, 29956, 29879,   363,   405, 28744,   322,  2582,
+          297,   901, 16232, 17402,  8492, 29889,   512,   445,  6559,   591,
+        15723,  3855,  9026, 29934,  3646,   292, 17456, 13303,  2531,   267,
+          313, 10178, 29909, 29892,   302,   381, 29968, 29892,   302,   381,
+        29903, 29892,  3711,   311,   306,   322,  1944,  7814, 29999, 29897,
+          470,  9200,  6388, 12903,   313,   273,  4850,  2251, 29897,  1072,
+        18099,  1820,  2224,  1994,   310,   405,  5094, 19914,   304,   443,
+          336,   955,  1009,  6198, 13500, 29889, 16478, 29892,   278,  9949,
+          310,  8024,  6606,   373, 14502,  4180,   471, 12399, 29889,  8680,
+         1284,   886, 18694, 21767, 29878,  2450, 29899,  1145,   277, 29878,
+         2450,   408,   278,  5882,  5782,   310,   405, 28744,   297,   315,
+        29956, 29879, 29892,  1550,   385,  4850,  2251,  1258,   451,   505,
+          263,  4549, 11896, 29889,  7298,  5084,   471,   884,   564,  7674,
+          393,   626,  3712,   423, 19100,   333,  5281,  3190,  3660, 29874,
+          313, 29909, 29949, 29909, 29897, 26869,   373,   405, 29950, 29941,
+        19100,   333,   362, 29889,  6811,   497, 29892,  8024,  6606,   750,
+          263,  8062,  2779,   373,   278, 18666,   749,   310,   405, 13303,
+         2531,   267,   313, 10178, 29909,   310,   319, 29949, 29909,   511,
+          541,   372, 13818, 15201,   278,  4180,   310,   315, 29956, 29879,
+          297,  4958,   310,   405, 28744,   297,   278,  1494,  1797, 29901,
+          443,   572,  9714,   529,  1963,  1431,  2415,   267,  3817,   275,
+          529,  9656,  2026,  3405, 28963, 29889,  4525,  1284,   886,  4368,
+          393,  8024,  6606, 20436,  5987,   405, 28744,   491,   701,  1727,
+        18099,   278, 19257,   393,   278, 14040, 17799, 14969,   936,  2224,
+         1994, 21994, 29892,  3117,   491, 10231,   438, 29906, 11421, 29889,
+          512,  6124, 29892,  1749,  6559, 17845, 12651,   297,  4221,  4097,
+         9024,   304,   405, 29906, 29949,   953,  6847, 29889,   450, 18666,
+          749,   310,  3711,   311,  1944,  7814, 29999,  2531,   267,  9488,
+         4482,  4822,   278,  4259, 21640,  1623,   263,  4549, 11896,   297,
+          278, 20376,   310,   278,   953,  4430,   405, 29906, 29949, 29889,
+          450, 10231,   364,  2219,   359,   310,  7814, 29999, 29914, 30291,
+        29876,   381,   322,   302,   381, 29903, 29914, 29876,   381, 29968,
+          411,   278,  6728,   310,  4259, 12266,   263,  9500,   297,   278,
+        15259,   310,   972,   277,  9710,  4285,  7113,  5312,  1144,   411,
+          263,  5224,  2531,  7492,  7037,   363,   405, 29906, 29949,  6507,
+        29889, 13999,   534,  1975,   892,  8900,  4249,   278,  7539,  1860,
+          541,   278,  7208, 12903,  1163,   287, 29889,   450,  8024,   287,
+         7539,  1860, 20436,  7964,   385,  7910,   297,   278, 29871, 30291,
+        17639, 29999, 29914, 30291, 29876,   381, 11959, 29892,  1550,   278,
+          443,   572,  9714,   385,  7910,   297,   278,   302,   381, 29903,
+        29914, 29876,   381])
+Pathways regulating the removal of nitrogen in planted and unplanted subsurface flow constructed wetlands.
+Single-stage constructed wetlands (CWs) are characterized by a low potential for N removal. Understanding the pathways regulating N cycling as well as their dependence on environmental variables might improve the potential of CWs for N removal and results in more accurate simulation tools. In this study we employed qPCR targeting marker functional genes (amoA, nirK, nirS, clade I and II nosZ) or microorganisms (anammox) regulating key pathways of N cycling to unravel their relative importance. Furthermore, the influence of plant species on treatment performance was studied. Our findings indicated nitrification-denitrification as the principal route of N removal in CWs, while anammox did not have a strong contribution. Evidence was also arisen that ammonia oxidizing archaea (AOA) contributed on NH3 oxidation. Overall, plant species had a weak effect on the abundance of N functional genes (amoA of AOA), but it strongly affected the performance of CWs in terms of N removal in the following order: unplanted < Phragmites communis < Typha latifolia. These findings suggest that plant species stimulate N removal by upregulating the rates that the responsible biochemical pathways operate, probably by increasing O2 supply. In addition, our study revealed differences in indicators linked to N2O emissions. The abundance of clade II nosZ genes remained low across the season scaling down a strong contribution in the reduction of the emitted N2O. The increasing ratios of nosZ/Σnir and nirS/nirK with the progress of season indicate a shift in the composition of denitrifiers towards strains with a lower genetic potential for N2O release. Similar trends were observed among the treatments but the mechanisms differed. The planted treatments stimulated an increase in the ΣnosZ/Σnir ratio, while the unplanted an increase in the nirS/nir
+
+### SEQUENCE 9
+tensor([    1,  8084,  4331,   297,   838, 29920, 27400, 30010, 29879,  5925,
+        29901,  5032,   262,  4845,   457,  6554,    13,    13, 28080, 12444,
+         1182,   348,  2838,   338, 29871, 29947, 29929,  2440,  2030, 29892,
+         2466,   540,   338,   871,   408,  3806,   304,  7726,   304,   591,
+         1048,   678,   749,   263,   390, 23239,   408,  1083,   262, 17438,
+         1048,  4976,  8882, 16546, 29889,    13,    13,  1576, 23703, 14877,
+          309,   424,   322, 21246,  9678,  1288,   391, 29892,  1058, 13623,
+        29892, 27886,   414,   322,  2888,  6275,  5925,   267,  5155,   373,
+          263,  4685, 29892,   338,  7687,   310,   263,   716,  2224, 29899,
+         1030,  5086,  4644, 22741, 27529, 23033,   393,  3697,   393,  5670,
+        29909,  5743, 30010,  1560,  5708,  2181, 19144,  1556, 20312,  1135,
+         1009,  5046, 29899,  4352,   287,  1236,   414, 29892,   427,  2146,
+          292,   297,   263,  7200,  1663,   332, 14703,   304,  1346, 22449,
+          936, 30024,  3370,  1439, 29878,  2073,   322,   316,   358,   423,
+        29889,    13,    13,  3563,   263,  8575,   310,   263, 29871, 29896,
+        29947, 29899, 10874,  6559, 29892,  4226,   946,   414,  3984,   433,
+          333,  7977,   297,   263,  1034,  4776,  8951,   408,  4996,   408,
+         5670, 29909,  5743, 29892,   263, 13512, 24788,   310,  2305, 26552,
+        29871, 29947, 29900,   322,  2038,  5069,  2626,  3842,   526,   408,
+         1298, 29891,   408,  1906,   310,  9045, 29891, 12407,  1602,  3076,
+        20023, 29889,    13,    13,  1576, 23033,   471,  6369,   297,   435,
+        29909,  1529, 29889, 24260,  4148,  2812,  2354,  9272,   284,  2574,
+          674,  7795,  2467,   263,  3440,   653,  2645,   263, 29871, 29906,
+        29900, 29896, 29955,   315,  3811,  3321,   319,  3460,  6991,  2415,
+          297, 23408,   267,  1388, 29892, 22559, 29889,    13,    13, 19111,
+        29909,   914, 12444,  1182,   348,  2838, 29892,  1058, 12080,   411,
+          670,  8750, 30010, 29879,  3942, 29892,   338, 14877,   309,   424,
+          373,  1641,   263,  1781,  9678,  1288,   391,   411,   670, 29871,
+        29941,  4595, 11991, 29889,    13,    13, 30015, 29902,   505,   304,
+        10365,   304,   393,  2924,   310,  2834,  3995, 12444,  1182,   348,
+         2838,  1497, 29889,  1346, 15597,  1016, 30010, 29873,  1073,  1556,
+         1048,  4976,  8882, 16546,   470, 21504,  5556,  1562,  1528,   852,
+          955, 29873, 29892,   577,   591,   505,   304,  3013,  5934, 29892,
+         5129,  3624,   263,   678,   749,   263,   390, 23239, 19546,   445,
+         4723,   470,   338,   372, 12537, 14156, 29973, 30010, 30024,    13,
+           13, 30015,  2831,   445, 23033,   591,  3902,  4395,  2845,  5670,
+        29909,  5743, 30010,  1560,  5708,   892,   373,   263, 11564,   564,
+         2386,   310,  4845,   457,  3995, 11504, 20979,  9272,   284,  2574,
+        29892, 25836,  1880, 23721,  2645,   263,   315,  3811,  3321,  2448,
+         2192,  1188, 29891,   322,   838, 29920, 27400, 30010, 29879,   360,
+          895,   559,  7817,   313, 13778,  3035, 29907, 29897,  2645,  4644,
+        22741,  3014,  5169,   262,  2552,  4523,   310, 27529, 29889,  1346,
+         4806,  1476,   393,  5670, 29909,  5743,   526,  9241,   424,   304,
+          263,  4226,  6554,   310, 23806,   393,   591,  1074,   297,  4226,
+        27008,   368, 29892,   322,   896, 30010,   276, 11415,   304, 21283,
+          263,  1735,  1546,  2834,  3949,   495,   322,  9045, 10638, 29892,
+         1597,   339,   440,   542,   635, 27131,  1781,   322, 11418,  5414,
+         1009,  1156,  2440])
+Next step in Alzheimer’s research: Brain decline rate
+
+Donald Tenbrunsel is 89 years old, though he is only as expected to speak to we about Chance a Rapper as reminisce about Frank Sinatra.
+
+The rarely vigilant and pleasant conversationalist, who reads, volunteers and customarily researches questions on a Internet, is partial of a new path-breaking Northwestern Medicine investigate that shows that SuperAgers’ smarts cringe most slower than their age-matched peers, ensuing in a larger insurgency to “typical” memory detriment and dementia.
+
+Over a march of a 18-month study, normal agers mislaid volume in a cortex twice as quick as SuperAgers, a singular organisation of people aged 80 and above whose memories are as pointy as those of healthy persons decades younger.
+
+The investigate was published in JAMA. Senior author Emily Rogalski will benefaction a commentary during a 2017 Cognitive Aging Summit in Bethesda, Maryland.
+
+SuperAger Tenbrunsel, who lives with his daughter’s family, is vigilant on being a good conversationalist with his 3 grandchildren.
+
+“I have to adjust to that kind of life,” Tenbrunsel said. “They don’t know most about Frank Sinatra or Franklin Delano Roosevelt, so we have to keep saying, ‘Is a Chance a Rapper entrance this week or is it Taylor Swift?’”
+
+“For this investigate we explored either SuperAgers’ smarts were on a opposite arena of decline,” pronounced Rogalski, associate highbrow during a Cognitive Neurology and Alzheimer’s Disease Center (CNADC) during Northwestern University Feinberg School of Medicine. “We found that SuperAgers are resistant to a normal rate of decrease that we see in normal elderly, and they’re handling to strike a change between life camber and health span, unequivocally vital good and enjoying their after years
+
+### SEQUENCE 10
+tensor([    1,  3201,   398,  2454,   263,   441,   293,  5796,   415,   545,
+        29901, 10081, 29899,  6360, 12700, 15916,   310,  5758,  2877,   322,
+        12045,   310,   610,   481,  1397,   423, 29889,    13, 29909, 12700,
+        15916,   310,  7456, 19813,   278, 25300,   936, 10643,   310,  1274,
+         1082,  1020,   398,  2454,  5796,   415,   545,   310,   278,  5153,
+         2548, 16294,   562,   293,   263,   441, 29874,  6369,   297,   278,
+         4223, 29899, 11675, 12845,  1546, 29871, 29896, 29929, 29955, 29906,
+          322,  5468, 29871, 29896, 29929, 29929, 29906,   471,  8560, 29889,
+          450, 12463,  5758,  2877,   310, 29871, 29896, 29892, 29955, 29946,
+        29906, 22069,  1058, 11977,   472,   278, 13457, 18758,   471, 29871,
+        29941, 29906, 29889, 29900, 13667,   697, 29899, 22585,  6423,  1434,
+        25300,   936, 26032,   471,  4687, 29889,  1459,   481,  1397,   423,
+          471, 11682,   758,  3372,  6703,   297, 29871, 29906, 29889, 29953,
+        29995,   310,  1438, 13457,  1891, 22069, 29892,   322,   610,   481,
+         1397,   423, 12092,   278, 25300,   936, 26032,   297, 29871, 29929,
+        29889, 29929, 29995,   310, 29871, 29896, 29892, 29946, 29929, 29906,
+        22069,  1058,  7450,   278, 13598,  5716,   297,   263, 13774, 13714,
+         4195, 29889,  4121, 10070,   769,   892, 29537,   287,  5034,   304,
+          278, 25300,   936,  1006,  7316,  1304, 29889, 12545,   263,   441,
+          293,  4891, 29899,   695,  1160,   292,   313, 29876,   353, 29871,
+        29946, 29946, 29941, 29897,   471,  6942,   411,   263, 13457,  5758,
+         2877,   310, 29871, 29896, 29953, 29889, 29900, 29995,   322,  5528,
+         5084,   310,   610,   481,  1397,   423,   310, 29871, 29896, 29929,
+        29889, 29906, 13667, 15020,  5224,  6588,  2099,  4891, 29899,   695,
+         1160,  3064,   313, 29941, 29906,  6233, 29936,   282,   529, 29871,
+        29900, 29889, 29900, 29896, 23797,  1209,   573,   470,  6136,  3519,
+          310, 13138,  1320,   284, 23895,  3958,   467,   512,   263, 11306,
+          310, 29871, 29906, 29929, 29900, 22069,   297,  6029,  5375,   848,
+          892,  3625, 29892,   278, 13299, 28524, 12045,   310,   610,   481,
+         1397,   423,   471,  4318,   304,  7910, 23228,   368,   565,   278,
+        14385,   310,   263,   441,   293,  4891, 29899,   695,  1160,   292,
+        13461,   287, 29871, 29941, 29900,  6233, 29892,   541,   871,   746,
+         1320,   284, 23895,  3958,   471,   451, 18765,   287,   313, 29886,
+          529, 29871, 29900, 29889, 29900, 29900, 29900, 29900, 29896,   467,
+          376,  7129,   573, 29908, 23895,  3958,   528,   348,  1372,   313,
+        29876,   353, 29871, 29946, 29906, 29946, 29897,   892,  6942,   411,
+          263,  5758,  2877,   310, 29871, 29896, 29906, 29889, 29941, 13667,
+          322,   278,  5528,  5084,   310,   610,   481,  1397,   423,  9263,
+         1463,   304, 29871, 29896, 29896, 29889, 29896, 29995,   313, 29886,
+          529, 29871, 29900, 29889, 29900, 29900, 29896,   467,  2398, 29892,
+          528,   348,  1372, 15478,   515,   278,   263,   412, 29916,   310,
+          278,  2175,  9712,  2200,   280,   750,   263, 27877,   706,  1880,
+        29871, 29906, 29953, 29889, 29896, 29995,  5528,  5084,   310,   610,
+          481,  1397,   423,  9401,   411,   528,   348,  1372,   515,   278,
+        12066,  2548,   263,   441, 29874,   313, 29947, 29889, 29906,  8874,
+          282,   529, 29871, 29900, 29889, 29900, 29906,   467, 29898,  2882,
+         1254,  4717,  1783, 10014,  3904, 29907,  3040, 29928, 15531, 29871,
+        29906, 29945, 29900])
+Traumatic aortic rupture: twenty-year metaanalysis of mortality and risk of paraplegia.
+A metaanalysis of articles concerning the surgical management of acute traumatic rupture of the descending thoracic aorta published in the English-language literature between 1972 and July 1992 was performed. The overall mortality of 1,742 patients who arrived at the hospital alive was 32.0%, one-third died before surgical repair was started. Paraplegia was noted preoperatively in 2.6% of these hospitalized patients, and paraplegia complicated the surgical repair in 9.9% of 1,492 patients who reached the operating room in a relatively stable condition. Patients then were analyzed according to the surgical intervention used. Simple aortic cross-clamping (n = 443) was associated with a hospital mortality of 16.0% and incidence of paraplegia of 19.2%, despite lower average mean cross-clamp times (32 minutes; p < 0.01 versus passive or active methods of providing distal perfusion). In a subset of 290 patients in whom individual data were available, the cumulative risk of paraplegia was shown to increase substantially if the duration of aortic cross-clamping exceeded 30 minutes, but only when distal perfusion was not augmented (p < 0.00001). "Passive" perfusion shunts (n = 424) were associated with a mortality of 12.3%, and the incidence of paraplegia decreased to 11.1% (p < 0.001). However, shunts inserted from the apex of the left ventricle had a contradictory high 26.1% incidence of paraplegia compared with shunts from the ascending aorta (8.2%; p < 0.02).(ABSTRACT TRUNCATED AT 250
+
+### SEQUENCE 11
+tensor([    1, 13166,   953,  2634,   778,   321, 29899, 29883, 23379,   411,
+        18707,   310,  1346, 29963,  4085,   897,  4684, 30024,   373, 15780,
+        19638,   414,   478, 10501, 17880,    13,    13,  1576,   501, 29889,
+        29903, 29889, 13166,   338, 12500,   292,   373,  3377,   278,   321,
+        29899, 29883,   335, 10474,   371,  3719, 29893, 12841, 29892,  1568,
+          304,   278, 15319,   310,  1906,  1058,  2947,   412, 29892,  5034,
+          304,   385,  4274,   373,  5905,  4006, 29879, 15440,   295, 29889,
+          510, 29889,   450, 13166, 30010, 29879, 15780,  1559,  4336, 29892,
+        17676,  5122,  7660, 29892, 10325,  3897,   697,   310,   278,   937,
+        15780, 19638,   414,   304,  5957,   263, 25158, 19810, 14419,   368,
+          363,   325, 21321, 29889,    13,    13,  4013,  7786,  2767,  5304,
+         1156, 21726,   310,  3620,   363,  1560,   554,   414, 29892,  3704,
+         6555,  1891,   316,  4684,   373,  3377, 13968,   363,  1906,   411,
+          385,  5065,   479,   304, 25158, 13807,   274, 25667,   698,   267,
+        29889, 10550,   414,  1754,  1854,   393,   727,   471,  3307,  9667,
+          322, 13521,   363,   385,   321, 29899,   492, 26461,   566,   325,
+        21430, 19810,  1434,   443,   345,  6504,   372,   297,  5468, 29871,
+        29906, 29900, 29896, 29946, 29889,    13,    13,  6716,   310,   278,
+         1667, 23633,   310,   278,   716,   325, 21430, 19810,   338,   393,
+          372, 16688, 14892,   943,   263,  8825,   304,  9558,   975,   304,
+          321, 29899, 29883, 23379, 29892,  4772,   292,   278,   408, 13244,
+          322, 25158,   393,  4943,   274, 25667,   698,   267,  7738, 29889,
+          450,   716,   316,  4684,   884,  1371,   304,  7344, 27372,  8388,
+          618,   886,   373,   278,  7751,   297, 10230,   304, 13807,  1560,
+        17223,   316,  4684, 29889,    13,    13, 29903,   737,   943,  2833,
+          304, 11188,   278, 14231,   304,  4337,  3448,   515,  4943,   274,
+        25667,   698,   267, 29892,   408,   338,   278,  1206,   411,   319,
+        14641,  4241,   841,   749, 23303,  1171, 18008,  4134, 29103,   653,
+          360, 28778, 29892,  1058,   337,  3687,   373,   325, 21430,   304,
+        16326,   278,  9558,   515, 13807,   274, 25667,   698,   267, 29889,
+         2973,   263,  1560, 17223, 19810, 25373, 10816,   363,   325, 21430,
+        29892,   360, 28778,   322,   916,   763, 29899, 24021,   287, 14892,
+          943,   451,   871, 14169,   515,  2534,  1009,  1914,  5004,  2913,
+        29892,   541,   884,   515,  2534,   263,  5264, 25005, 29889,    13,
+           13,  1576,  7306,   373,  3377, 17676,  5122,  7660,   338,   451,
+          304, 27391,   470, 21460,   277,  1560, 17223, 29892,   541,   304,
+         2758, 14892,   943,   304,   671,  1316,  9316,   297,  1797,   304,
+          367,  7960,   363,   278,   664,   393, 12185, 14432, 29889,   317,
+          737,   943,   526,   884, 21905,   304,   671,  1009,   321, 29899,
+        29883, 23379,   373, 13807,  1560, 17223,   316,  4684,   565,  7429,
+        29889,    13,    13,  7999,  3890,  7660, 30010, 29879,  2551,   411,
+          967,   716,   325, 21430, 29899, 14940,  4038,  9436,   756,   263,
+         6374, 10879,   373,  1906,   633, 29877,   538,   278,  7751, 29889,
+          910,  2551,  3732,   372,  5517,   393,   777,   310,   278, 13166,
+        30010, 29879,   916, 15780, 19638,   414,   674,  1101, 14726,   322,
+         3867,   263,  5004,  2913,   363, 14892,   943,  1058,  5821,   321,
+        29899, 29883, 25667,   698,   267, 29889,    13,    13,  4435, 29901,
+          349,   682,  1706])
+Navy embraces e-cigs with introduction of “Vape Decks” on aircraft carriers Vaped Magazine
+
+The U.S. Navy is jumping onboard the e-cigarette bandwagon, much to the delight of those who vape, according to an article on hanfordsentinel.com. The Navy’s aircraft carrier, USS George Washington, recently became one of the first aircraft carriers to offer a smoke deck solely for vapers.
+
+This recent update comes after centuries of changes for smokers, including centralized decks onboard ships for those with an urge to smoke traditional cigarettes. Researchers made sure that there was enough demand and desire for an e-liqiud vaping deck before unveiling it in July 2014.
+
+One of the main benefits of the new vaping deck is that it offers sailors a chance to transition over to e-cigs, avoiding the ashes and smoke that regular cigarettes produce. The new decks also help to maintain cleaner surroundings on the ship in comparison to traditional smoking decks.
+
+Sailors seem to appreciate the efforts to move away from regular cigarettes, as is the case with Aviation Maintenance Administrationman Third Class Zachary Dixon, who relies on vaping to ease the transition from traditional cigarettes. With a smoking deck designated specifically for vaping, Dixon and other like-minded sailors not only benefit from having their own separate space, but also from having a social atmosphere.
+
+The goal onboard USS George Washington is not to promote or prohibit smoking, but to allow sailors to use such products in order to be ready for the work that lies ahead. Sailors are also permitted to use their e-cigs on traditional smoking decks if desired.
+
+George Washington’s success with its new vaping-specific area clearly has a positive impact on those aboard the ship. This success makes it likely that some of the Navy’s other aircraft carriers will follow suit and provide a separate space for sailors who prefer e-cigarettes.
+
+Source: Pink Sp
+
+### SEQUENCE 12
+tensor([    1, 29871, 29896, 29889,  8989,   310,   278,   512,  7316,    13,
+         1576,  2198,   297,  7316,  1104,  1078,  6892,   304,   278,  1746,
+          310,   577, 29891, 14471,  2078, 21219, 29889,   512,  3153, 29892,
+          278,   297,  7316,  1104,  1078,   304,   278,  9554,   577, 29891,
+        14471, 12875, 29871, 29900, 29896, 29900, 29945, 29953, 29929, 29953,
+        29896, 29889,    13, 29906, 29889, 12953,   310,  6376,   630,  3012,
+           13,  8439,   526, 12727,  6576,   297,   278,  5849,   310,   738,
+         9554, 29892,   553, 27797,  8024, 22593,   572, 11625, 29889, 18058,
+         2078, 21219, 16410,   411,   278,  7418,   322,  5023,   310,  4828,
+          322,  8062,  2264,   267,   310,   278,  1857, 22593,   572, 11625,
+        29892,   278, 25012,   310,  1824, 14433, 29892,   322,   278,  5023,
+          310,  2702,  2078, 21219,  1203,  3145, 29889,   450,  2446,  4331,
+          338,  9262,   310, 22593,   572, 11625,   393, 22592,   278,  1020,
+         1169,   304,  5870,   278,  1824, 14433, 29889,   450,  7306,   338,
+          304, 14405,   297,   263,  2323, 12875,   385, 16710, 10296,   310,
+          553, 27797,  1020,  1169,   515,   278,  3847,   284, 22593,   572,
+        11625, 29889,  4525,  4100,  1020,  1169,  1122,  3160,  6133, 16717,
+         7709, 29892, 17711,   304, 10267,  2129,   322, 17564, 29879, 29892,
+         2253,   380,  1567,   322, 16778, 29892, 20341,   749,   304,  4192,
+         1774,   322, 12871, 29892,  2253,  9221,  4917,   293, 11029, 29892,
+        17711,   304,   902, 29890,   293,  2247, 29892,   322, 28473,   297,
+         5541,  3245,  1020,  1169, 29889,    13,  6295, 29891, 14471, 29892,
+          402,   368, 29883,   457,  4236,   313, 29931,  9774,   338,   263,
+        21114,  1746,   274,  1336, 29889,  6549, 29892,   263,  3133,   292,
+         7306,   310,  8024,  2078,   287,   414,   338,   304,  2693, 13714,
+        29892,  1880,  7709,   292,   577, 29891, 14471,  1197, 20850,   393,
+          526,  9221,  4917,  1711,  6047, 29889,   450,  9590,   363,   445,
+         7306,   526,   304,  5256,   675,   278,  5253,   310,  2646,   262,
+         7371,   373,   278,  2982,  1304,   322,   304, 11421,  9687,   363,
+         1716, 15006,   322, 25618, 29889,  1763, 12709,   445,  7306, 29892,
+          278,   577, 29891, 14471,  2078,  2447,  1818,  1831,   322,  2693,
+          577, 29891, 14471, 18577,   393,   505,   278,  1020,  1169,   393,
+         1121,   297, 11558,  1197, 20850, 29889,    13,  1576, 17182, 23892,
+          515,   577, 29891, 11700,   338, 17644,  1304,   297,  9687,  9316,
+        29892,  1316,   408, 15276,   279,   457, 29892,  7984,   292, 17182,
+        29892,   322,  4497,   328, 10714,   886, 29889,  1105, 29891, 14471,
+        17182,   338, 13725,   310,   269,  1337,   630, 29892,  1601,  1309,
+        29879,  1337,   630, 29892,   322, 15680,  6948,  1337,   630,  9950,
+         1017,  1274,  4841, 29892,   411,   263, 15662, 15259,   310, 29871,
+        29896, 29896, 29995,  5112,  2415,   293, 29892, 29871, 29946, 29995,
+         1886,   279,   293, 29892, 29871, 29906, 29945, 29995,   288,   280,
+          293, 29892, 29871, 29945, 29900, 29995,  6276,  1772,   293, 29892,
+          322, 29871, 29929, 29995,  6276, 18975,   293,  9950,  1017, 22193,
+         2793,   313, 30015, 29923,  4599,   293, 14305,  5795,   310,  3382,
+         2164,  1105, 29891, 14471,  3201,  1169,  6991,  5219, 13969,  3995,
+        25327,  1105, 29891, 14471,  9705,  8194, 12590,   669,  3082,  1105,
+        29891, 14471,  7993, 12630, 13969, 29871, 29929, 29906, 29903, 29892,
+         2610, 29871, 29896])
+1. Field of the Invention
+The present invention relates generally to the field of soybean breeding. In particular, the invention relates to the novel soybean variety 01056961.
+2. Description of Related Art
+There are numerous steps in the development of any novel, desirable plant germplasm. Plant breeding begins with the analysis and definition of problems and weaknesses of the current germplasm, the establishment of program goals, and the definition of specific breeding objectives. The next step is selection of germplasm that possess the traits to meet the program goals. The goal is to combine in a single variety an improved combination of desirable traits from the parental germplasm. These important traits may include higher seed yield, resistance to diseases and insects, better stems and roots, tolerance to drought and heat, better agronomic quality, resistance to herbicides, and improvements in compositional traits.
+Soybean, Glycine max (L.), is a valuable field crop. Thus, a continuing goal of plant breeders is to develop stable, high yielding soybean varieties that are agronomically sound. The reasons for this goal are to maximize the amount of grain produced on the land used and to supply food for both animals and humans. To accomplish this goal, the soybean breeder must select and develop soybean plants that have the traits that result in superior varieties.
+The oil extracted from soybeans is widely used in food products, such as margarine, cooking oil, and salad dressings. Soybean oil is composed of saturated, monounsaturated, and polyunsaturated fatty acids, with a typical composition of 11% palmitic, 4% stearic, 25% oleic, 50% linoleic, and 9% linolenic fatty acid content (“Economic Implications of Modified Soybean Traits Summary Report,” Iowa Soybean Promotion Board & American Soybean Association Special Report 92S, May 1
+
+### SEQUENCE 13
+tensor([    1,  3826,   276,  1463,  1539,   370, 28467,   293,  3144,   329,
+          314,   403,   337, 14268,  1134, 29871, 29896, 20847,  3097,   297,
+          263, 16500,   411, 10917,   542,   406, 12562,   279,   472,  1165,
+          423,  1134, 29871, 29953, 29901,   319,   313, 29896, 29896, 29897,
+        29907, 29899,  1806,  7428,   349,  2544,  6559, 29889,    13,  1888,
+         6751,   310,  1539,   370, 28467,   293,  3144,   329,   314,   403,
+          337, 14268,  1134, 29871, 29896,   313, 29885, 29954,  6092, 29934,
+        29896,   511,  1887,  1891, 13489,  3598,   297,   278,   274,   406,
+        12562,   279, 15247,  9089,  1324,  9101,   322,  4475,   304,   274,
+          406, 12562,   279,   740, 29892,   756, 10325,  4953,  1950,   773,
+        13686,  1617, 25477,  6454,  5275,   313, 29925,  2544,   467,  1334,
+         3461,   278,  2847,   286, 29954,  6092, 29934, 29896,  6382,   292,
+          297,   263, 29871, 29955, 29946, 29899,  6360, 29899,  1025,  6114,
+          411, 10917,   542,   406, 12562,   279,   472,  1165,   423,  1134,
+        29871, 29953,   313, 29903,  5454, 29953,   467,   450, 16500,   322,
+        29871, 29929,  5046, 29899,  4352,   287,  9045, 29891, 11761,  1090,
+        29893,   296,   349,  2544,   885,  9450,   411,   263,   286, 29954,
+         6092, 29934, 29896, 17937,   327,   945,   261, 29892,   405, 29899,
+        29961, 29946, 29899, 29961, 29953, 17722,   275,   459,  1336,  2904,
+          314,  1789, 29897,  2272,  5632,   333,   262, 29899, 29946, 29899,
+         2904, 29962, 29899, 29896, 29892, 29941, 29899,   386,   423, 29920,
+          324, 29899, 29906, 29899,  2904, 29962,   448, 29946, 17722, 29896,
+        29896, 29897, 29907, 29899, 29885,   621,  2251, 29891, 29899, 29940,
+        29899, 29885,   621,  2904,  1785, 29920,   314,   680, 29889,  3684,
+         9351, 29899,   974, 29899,  1639,   342,   892,  7180,   373,   278,
+        14123,   322, 13446,   658,  5707, 29892, 12108,   275, 29892,   322,
+         5685,   617, 14999, 29889, 25799,  7037,   313, 29933, 29925,  2797,
+        29897,   471, 12833,   304, 12678,   286, 29954,  6092, 29934, 29896,
+        20847,  3097,   773,   278, 20875,  3407,   260, 15118,  1904, 29889,
+          319,  7687,  7977, 26385,   471,  7436,   304,   278,   350, 29925,
+         2797,  1819, 29889, 19814, 29892,   278,  7977,   310,   278,  3353,
+          274,   406, 12562,   398,   471, 17005,   773,   341,  3960, 29889,
+          450, 24114,   350, 29925,  2797,  1819,   310,   278,   274,   406,
+        12562,   279,  1014,  1727,  1080,   322,   278,  7977,   310,   278,
+         3353,   274,   406, 12562,   398,   297,   278, 16500,   892, 29871,
+        29945, 29896, 29889, 29900, 29995,   304, 29871, 29953, 29947, 29889,
+        29941, 29995,   322, 29871, 29955, 29906, 29889, 29953, 13667,  8307,
+        29892,   310,   278, 11761, 29889,  6549, 29892,   278, 18497,   310,
+        12212,   350, 29925,  2797,  1819,   471, 13774,  7200,  1135,   278,
+        18497,   310,   274,   406, 12562,   279,   472,   307, 11461,   297,
+          278, 16500, 29889,  4525,  1284,   886,  4368,   393,   278, 20039,
+          310,   286, 29954,  6092, 29934, 29896, 20847,  3097,   338,   901,
+        20502,  1135, 18131,  5996, 20398,   491,   341,  3960,   304,  6459,
+        12212,   274,   406, 12562,   279,   740, 29889,  6549, 29892,  6382,
+          292,   310,   286, 29954,  6092, 29934, 29896, 29892,  3117,  9432,
+          292,   278,  1353,   322,  4978,   310, 15247,  9089,  1324,  9101,
+        29892,   508,   367,   263,  2702,   322, 20502, 17456,   363, 23248,
+          310,   274,   406])
+Decreased metabotropic glutamate receptor type 1 availability in a patient with spinocerebellar ataxia type 6: A (11)C-ITMM PET study.
+Imaging of metabotropic glutamate receptor type 1 (mGluR1), localized exclusively in the cerebellar Purkinje cells and related to cerebellar function, has recently become possible using positron emission tomography (PET). We report the initial mGluR1 imaging in a 74-year-old woman with spinocerebellar ataxia type 6 (SCA6). The patient and 9 age-matched healthy controls underwent PET scanning with a mGluR1 radiotracer, N-[4-[6-(isopropylamino)pyrimidin-4-yl]-1,3-thiazol-2-yl] -4-(11)C-methoxy-N-methylbenzamide. Volumes-of-interest were placed on the anterior and posterior lobes, vermis, and flocculus. Binding potential (BPND) was calculated to estimate mGluR1 availability using the simplified reference tissue model. A partial volume correction was applied to the BPND values. Additionally, the volume of the whole cerebellum was measured using MRI. The corrected BPND values of the cerebellar subregions and the volume of the whole cerebellum in the patient were 51.0% to 68.3% and 72.6%, respectively, of the controls. Thus, the magnitude of reduced BPND values was relatively larger than the magnitude of cerebellar atrophy in the patient. These findings suggest that the measurement of mGluR1 availability is more sensitive than morphological measurements by MRI to detect reduced cerebellar function. Thus, imaging of mGluR1, probably reflecting the number and distribution of Purkinje cells, can be a specific and sensitive marker for estimation of cere
+
+### SEQUENCE 14
+tensor([    1,   853,   309,  1008,   284,  2748, 14218,  2316,  9292, 12430,
+         9013,   778, 16712, 18530,  4603,   297,  1716,   286,  4850,   653,
+          260, 15118,   322, 27274,  9358,   389,   295,   616,  9101, 10320,
+        12818,   286,  4850,   653,  1083,   397, 14067, 29889,    13, 26222,
+        14218,  2316,  9292, 26830, 27274,  7709, 29892,   541,   278, 14407,
+         7208, 12903,   526,   451,  3447,  8072, 11098, 29889,  9959,  1072,
+         2785,  2861,   304, 27274,   380, 25101,   297,   278,   260, 15118,
+         1122, 29126,   304,   445,  2779, 29892,   541,  1316,  7208, 12903,
+          505,   451,  3447,  1063,  8072,  5439, 29889,  1763, 18766,   445,
+        20051, 29892,   697, 11430,   672,  4203,   310,  4832,  4168,  5465,
+         1146, 16129,   274,  1242,   471,  2316, 17713,  2748,   263,  2462,
+          313, 13668, 29924,   511,   322,   278,   916,  8951,   263,  2462,
+          313, 29911, 23560,   467,  1551,   278, 29871, 29947,   386,  2462,
+          310,   443,   309,  1008,   284,   438, 23560, 29892,   286,  4850,
+          653,  9358,   389,   295,   616,  9101,   313,  2303, 29907, 29897,
+          892,  3708,  2164,   515,   278, 27274,   773,  5198,   348,   290,
+        22414,   293, 23683, 29889,   341,  4850,   653,  4768,  3554,   583,
+          892,  4023, 29894,  2868,   515,  1716, 11430,   672,  8870,  1960,
+        29889,   450, 12651,   297,  1301,   924, 28723,  1546,  4768,  3554,
+          583,   515,   438, 23560,   322,   323, 23560, 11430,   672,  8870,
+         1960,   892, 29537,   287,   491,   263, 29871, 29906, 29906, 29895,
+          289,   586,   457,   288,  3473,   265,  1682,   280,   327,   680,
+         1409, 29892, 10320, 12818, 29871, 29946, 29929, 29900,  1301,   924,
+        29879,   393,   892, 16712,   368, 13384, 29889,   450,  5882,  7663,
+          310,   701,  1727,  7964,  1301,   924, 29879, 15041,  7208, 12903,
+         9701,   297,  3038,   410, 29880,  9633,   362,   322,  4892, 29889,
+         1334,  4340, 16725,  1083,   397, 14067,   310,   278,   286,  4850,
+          653,   260, 15118,   491,  5198,   348,  1148,   391,  2878,   331,
+         6020, 29892,   607, 10018,  3109,  3038,   410, 29880,  9633,   362,
+          322,   901, 16798,   415, 19263,   297,   438, 23560, 11430,   672,
+         8870,  1960, 29889, 15350,  4603, 29537,   287,   491,   390, 29911,
+        29899, 29939,  9026, 29934,   297,   341, 11206,  3708,  2164,   515,
+        27274,   322,   286,  4850,   653,  4768,  3554,   583, 10018,   263,
+         3619,  1623,  1727,  2785,   310,  4832,  1301,   924, 29879,   313,
+         2882, 11135, 29906, 29892,   383,  2882, 29925, 29941, 29892,   405,
+        29965, 21685, 29906, 29892,   390,  3521,  1660, 29896,   322, 29871,
+        29945, 29892,   322,   317, 12182, 29941, 29946, 29909, 29906, 29897,
+          541,   884,   777,   766,  1037,  8357,  2478, 29889,  3824, 29892,
+         5642,   310,   278,   701,  1727,  7964,  1301,   924, 29879,   297,
+         4768,  3554,   583, 23821,   297, 27274, 29899, 15503,  2164,   341,
+        11206, 29889,  6440, 29892,   871, 27274, 29899, 15503,  2164,   341,
+        11206, 10018,  7282,   365,  1964,  5688,  1623,  1727,  2785, 29892,
+          607, 14661,  5480,   393,   896,  3928,   304,   263,   286,  4850,
+          653,  9358,   389,   295,   616,  3038,  1014,  7323,  2785, 29889,
+         8680,  2582, 29892,  7625,  1156,   443,   309,  1008,   284,  2316,
+         9292, 29892,  4368,   393,  3038,  1083,   397, 14067,  2645,   438,
+        23560,   338,  2861,   304,   263,  1887,  2779, 29892,   607,  1122,
+          367, 19799,   491])
+Unilateral once daily milking locally induces differential gene expression in both mammary tissue and milk epithelial cells revealing mammary remodeling.
+Once daily milking reduces milk yield, but the underlying mechanisms are not yet fully understood. Local regulation due to milk stasis in the tissue may contribute to this effect, but such mechanisms have not yet been fully described. To challenge this hypothesis, one udder half of six Holstein dairy cows was milked once a day (ODM), and the other twice a day (TDM). On the 8th day of unilateral ODM, mammary epithelial cells (MEC) were purified from the milk using immunomagnetic separation. Mammary biopsies were harvested from both udder halves. The differences in transcript profiles between biopsies from ODM and TDM udder halves were analyzed by a 22k bovine oligonucleotide array, revealing 490 transcripts that were differentially expressed. The principal category of upregulated transcripts concerned mechanisms involved in cell proliferation and death. We further confirmed remodeling of the mammary tissue by immunohistochemistry, which showed less cell proliferation and more apoptosis in ODM udder halves. Gene expression analyzed by RT-qPCR in MEC purified from milk and mammary biopsies showed a common downregulation of six transcripts (ABCG2, FABP3, NUCB2, RNASE1 and 5, and SLC34A2) but also some discrepancies. First, none of the upregulated transcripts in biopsies varied in milk-purified MEC. Second, only milk-purified MEC showed significant LALBA downregulation, which suggests therefore that they correspond to a mammary epithelial cell subpopulation. Our results, obtained after unilateral milking, suggest that cell remodeling during ODM is due to a local effect, which may be triggered by
+
+### SEQUENCE 15
+tensor([    1,   660, 29901,    13,    13, 12310,   701,   278,   934,   304,
+          367,  5142,   373, 14855,   278,  1544,    13,    13, 29902,   626,
+         1811,   304,  1207,   278,   869,  3945, 29892,   869,  3134,  7671,
+         2850,  2066,   367,  5142,   519,   297,   278,  1021,  1813,   925,
+          763,   869,  7554,  7671,  1514, 29916,  2066,   607,   526,  1835,
+          701,   322,  2244,   376,  1867,   366,   864,   304,  5142,   445,
+          934, 29973,  1642,    13, 29902,   505,  5925,   287,   322,  1476,
+          393,   278,  5417,  2322,  2984,   363,  1438,  2066,   526,  1722,
+          297,   716,  4714,   541,   306,   925,   864,   304,   367,  5142,
+          297,   278,  1021,  1813, 29889,   306,   505, 10959,   278,  1967,
+          925,   763,   393,   306,   817,   304,  1835,   701,   746, 14855,
+         1906,   869,  3945,  7671,  3134,  7671,  2850,  2066, 29889,    13,
+         5328,   508,   445,   367,  2309, 29973, 26407,   505,  2969,   363,
+          445, 29889,    13,    13, 29909, 29901,    13,    13,  4706,   306,
+          505, 24114,   491,   590,  1914, 29889,  3387, 10594,   278,   775,
+         2400,   674,  8472,  1835,   701,   738,  2066,   304,  2244,  3692,
+          304,  5142,   470,   451, 29889,   910,   338,   590,   716,   775,
+        29889,    13,  1678,   450,  5142, 29889,  1961,  3743,   278,   775,
+         2400, 29901,    13,    13,  4706,  6319,  1961,    13,  4706,   395,
+         9507,   353,  7471,  7194,  3366,  1445, 10370,    13,  4706,   395,
+         3051,  1853,   353,   376,  6214, 29914, 10118, 29899, 10382,  1769,
+           13,  4706,  4839,   703,  3916, 29899,  1542, 29901,   376,   869,
+          395,  3051,  1853,   416,    13,  4706,  4839,   703,  3916, 29899,
+         4205,  3283, 29901, 26305, 29936, 10422, 14672, 29908,   869,  2362,
+         3871,  1566,  9507, 29897,   869,  6634,  1769,  1496,    13,  4706,
+          565, 11081,  7194,  1839,  2084,  2033,  1275,   525,  1482, 29918,
+         9009, 29879,  1495,    13,  4706,  1303,  1445, 11081, 18603,  1839,
+        28665,  5005,  3919, 29918, 21289,  2033,  1213, 29945, 29900, 11671,
+        29914,  6406, 29918, 15119, 29918,  1482, 29914, 16596, 29914,   572,
+         9009, 29914,  1482, 29918,  9009, 29879, 29914, 22681,  9507,   416,
+           13,  4706,  1683,    13,  4706,  1303,  1445, 11081, 18603,  1839,
+        28665,  5005,  3919, 29918, 21289,  2033,  1213, 29945, 29900, 11671,
+        29914,  6406, 29918, 15119, 29918,  1482, 29914, 16596, 29914,   572,
+         9009, 29914,   465,   404,   358, 29918,  9009, 29879, 29914, 22681,
+         9507,   416,    13,  4706,  6876,   890,    13,  4706,  6681,    13,
+           13,  2855,   278,   934, 29889,  1961,  3743,   445,   775, 29901,
+           13,    13, 29966,  2492,  4765, 25076,  1961,  2916,  2967, 29918,
+         2271,   890, 17382, 16596, 29914,   572,  9009, 29914,   465,   404,
+          358, 29918,  9009, 29879, 29914,  8169,  1961,  2916,   395,  5325,
+          976,  1445, 29918,   978, 29973, 11903,  3611,   543,  3970, 16048,
+        29428,   306,  1529,  1692, 29908,  3171,   543, 29896, 29900, 29900,
+        29908,  2920,   543, 29896, 29900, 29900, 29908, 14478,   543,  7165,
+        29889,  5479, 29889, 12653,  2433,  8169,  1961,  2916,  2967, 29918,
+         2271,   890, 17382,  1188,   359, 29914, 10382, 29973,  1445, 29922,
+         8169,  1961,  2916,   395,  5325,   976,  1445, 29918,   978, 17382,
+        29987,  2084, 29922,   465,   404,   358, 29918,  9009, 29879, 11838,
+          770,   543, 10382,  4681,    13,    13,  4013,   674,  5149,  2656,
+          714,   278,  1857])
+Q:
+
+Pop up the file to be download on clicking the link
+
+I am trying to make the .txt, .xml,.sql files be downloadable in the same page just like .zip,.docx files which are pop up and ask "do you want to download this file?".
+I have researched and found that the windows default option for these files are open in new browser but I just want to be download in the same page. I have attached the image just like that I need to pop up when clicking those .txt,.xml,.sql files.
+How can this be done? Anyone have idea for this.
+
+A:
+
+        I have corrected by my own. Just putting the code below will successfully pop up any files to ask whether to download or not. This is my new code.
+    The download.php contains the code below:
+
+        <?php
+        $filename = $_GET["file"];
+        $contenttype = "application/force-download";
+        header("Content-Type: " . $contenttype);
+        header("Content-Disposition: attachment; filename=\"" . basename($filename) . "\";");
+        if($_GET['path'] == 'new_uploads')
+        readfile($_SERVER['DOCUMENT_ROOT']."50dl/admin_panel_new/assets/plupload/new_uploads/".$filename);
+        else
+        readfile($_SERVER['DOCUMENT_ROOT']."50dl/admin_panel_new/assets/plupload/assessment_uploads/".$filename);
+        exit();
+        ?>
+
+And the file.php contains this code:
+
+<img src="<?php echo base_url();?>assets/plupload/assessment_uploads/<?php echo $files->file_name?>" title="DOWNLOAD IMAGE" height="100" width="100" onClick="window.location.href='<?php echo base_url();?>logos/download?file=<?php echo $files->file_name?>&path=assessment_uploads'" class="download"/>
+
+This will correctly sort out the current
