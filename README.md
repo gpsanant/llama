@@ -41,6 +41,8 @@ OUTPUT_DIR = # the directory to output the training metadata and model weights
 
 Refer to the slurm scripts in the top level directory for running training using the slurm workload manager.
 
+Note: in order to run check the slurm scripts, you will need to change the source path to the cloned llama respository. Alternatively you can simply run from the base repository llama directory and run using `torchrun`.
+
 ## Download
 
 Once your request is approved, you will receive links to download the tokenizer and model files.
