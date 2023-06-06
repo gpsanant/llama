@@ -3,7 +3,11 @@ import llama
 import torch
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--little", action="store_true", help="Activate the --little flag.")
+parser.add_argument("--little", help="Activate the --little flag.")
+parser.add_argument("--tokenizer-path", type=str, help="Provide a path to the tokenizer.")
+parser.add_argument("--model-path", type=str, help="Provide a path to the model.")
+parser.add_argument("--temperature", type=float, help="Provide a temperature for generation.")
+parser.add_argument("--max-gen-len", type=int, help="Provide a maximum generation length.")
 parser.add_argument("--prompt", type=str, help="Provide a prompt for generation.")
 args = parser.parse_args()
 
@@ -18,14 +22,22 @@ MODEL_DIM = 256
 MODEL_N_HEADS = 8
 MODEL_N_LAYERS = 8
 
+# we default to paths on hyak
+
 TOKENIZER_PATH="/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
+if args.tokenizer_path:
+    TOKENIZER_PATH = args.tokenizer_path
+
 MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/baseline/model_epoch_14.pt"
+if args.model_path:
+    MODEL_PATH = args.model_path
+elif args.little:
+    MODEL_PATH="/mmfs1/gscratch/scrubbed/arprieve/llama_data/model_epoch_14.pt"
 
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
 
 if args.little:
     MODEL_DIM = 128
-    MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/little/model_epoch_14.pt"
 
 model_args: llama.ModelArgs = llama.ModelArgs(
     max_seq_len=MAX_SEQ_LEN,
@@ -36,7 +48,7 @@ model_args: llama.ModelArgs = llama.ModelArgs(
     device=DEVICE)
 model_args.vocab_size = tokenizer.n_words
 
-model = llama.Transformer(model_args)
+model = llama.TransformerInference(model_args)
 model.load_state_dict(torch.load(MODEL_PATH))
 model.eval()
 
@@ -55,7 +67,16 @@ prompts = [empty_prompt_str]
 if args.prompt:
     prompts.append(args.prompt)
 
-generated = generator.generate(prompts, max_gen_len=250)
+
+temperature = 0.8
+if args.temperature:
+    temperature = args.temperature
+
+max_gen_len = 100
+if args.max_gen_len:
+    max_gen_len = args.max_gen_len
+
+generated = generator.generate(prompts, max_gen_len, temperature=temperature)
 
 print("Generated")
 
