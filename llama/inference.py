@@ -1,5 +1,11 @@
+import argparse
 import llama
 import torch
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--little", action="store_true", help="Activate the --little flag.")
+parser.add_argument("--prompt", type=str, help="Provide a prompt for generation.")
+args = parser.parse_args()
 
 DEVICE = "cuda"
 
@@ -16,6 +22,10 @@ TOKENIZER_PATH="/mmfs1/gscratch/scrubbed/arprieve/llama_data/tokenizer.model"
 MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/baseline/model_epoch_14.pt"
 
 tokenizer = llama.Tokenizer(model_path=TOKENIZER_PATH)
+
+if args.little:
+    MODEL_DIM = 128
+    MODEL_PATH="/gscratch/scrubbed/ebdaniel/llama/models/little/model_epoch_14.pt"
 
 model_args: llama.ModelArgs = llama.ModelArgs(
     max_seq_len=MAX_SEQ_LEN,
@@ -41,9 +51,11 @@ print("Loaded generator")
 
 empty_prompt_str = tokenizer.decode([tokenizer.bos_id])
 
-prompts = [empty_prompt_str, "def bar(x):", "def baz(x):"]
+prompts = [empty_prompt_str]
+if args.prompt:
+    prompts.append(args.prompt)
 
-generated = generator.generate(prompts, max_gen_len=100)
+generated = generator.generate(prompts, max_gen_len=250)
 
 print("Generated")
 
@@ -51,4 +63,3 @@ for prompt, gen in zip(prompts, generated):
     print("Prompt:", prompt)
     print("Generated:", gen)
     print()
-
