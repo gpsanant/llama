@@ -2,7 +2,7 @@
 
 This script uses the LLaMA model to generate text based on the provided prompts.
 
-NOTE: Inference only works on branch `inference`.
+## NOTE: Inference only works on branch `inference`.
 
 ## Requirements
 
